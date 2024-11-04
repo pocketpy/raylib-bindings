@@ -1,0 +1,6 @@
+[submodule "raylib"]
+	path = raylib
+	url = https://github.com/raysan5/raylib.git
+[submodule "pocketpy"]
+	path = pocketpy
+	url = https://github.com/pocketpy/pocketpy.git

@@ -1,0 +1,6 @@
+-xc
+-std=c11
+-Wall
+-W*
+-Iraylib/src/
+-Ipocketpy/include

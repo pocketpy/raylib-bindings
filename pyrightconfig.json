@@ -1,0 +1,6 @@
+{
+    "extraPaths": [
+        "pocketpy/scripts/c_bind"
+    ],
+    "stubPath": "output"
+}

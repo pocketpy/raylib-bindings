@@ -1,4 +1,4 @@
-from vmath import vec2, vec3, vec2i, vec3i, mat3x3
+from vmath import vec2, vec3, vec2i, vec3i, mat3x3, color32
 from typing import overload
 intptr = int
 

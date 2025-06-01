@@ -1,6 +1,8 @@
 {
     "extraPaths": [
-        "pocketpy/scripts/c_bind"
+        "pocketpy/scripts/c_bind",
+        "pocketpy/include/typings"
     ],
+    "reportMissingModuleSource": "none",
     "stubPath": "output"
 }

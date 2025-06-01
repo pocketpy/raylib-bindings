@@ -17,145 +17,6 @@ static bool struct__address__(int argc, py_Ref argv) {
 #define tp_user_RenderTexture2D tp_user_RenderTexture
 #define tp_user_Camera tp_user_Camera3D
 
-static bool Vector2__new__(int argc, py_Ref argv) {
-    py_Type cls = py_totype(argv);
-    py_newobject(py_retval(), cls, 0, sizeof(Vector2));
-    return true;
-}
-static bool Vector2__init__(int argc, py_Ref argv) {
-    Vector2* self = py_touserdata(argv);
-    if(argc == 1) {
-        memset(self, 0, sizeof(Vector2));
-    } else if(argc == 1 + 2) {
-        if(!py_castfloat32(py_arg(1), &self->x)) return false;
-        if(!py_castfloat32(py_arg(2), &self->y)) return false;
-    } else {
-        return TypeError("expected 1 or 3 arguments");
-    }
-    py_newnone(py_retval());
-    return true;
-}
-static bool Vector2__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector2* self = py_touserdata(argv);
-    Vector2* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Vector2));
-    *res = *self;
-    return true;
-}
-static bool Vector2__get_x(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector2* self = py_touserdata(argv);
-    py_newfloat(py_retval(), self->x);
-    return true;
-}
-static bool Vector2__set_x(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Vector2* self = py_touserdata(argv);
-    if(!py_castfloat32(py_arg(1), &self->x)) return false;
-    py_newnone(py_retval());
-    return true;
-}
-static bool Vector2__get_y(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector2* self = py_touserdata(argv);
-    py_newfloat(py_retval(), self->y);
-    return true;
-}
-static bool Vector2__set_y(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Vector2* self = py_touserdata(argv);
-    if(!py_castfloat32(py_arg(1), &self->y)) return false;
-    py_newnone(py_retval());
-    return true;
-}
-static py_Type register__Vector2(py_GlobalRef mod) {
-    py_Type type = py_newtype("Vector2", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Vector2__new__);
-    py_bindmagic(type, __init__, Vector2__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Vector2__copy__);
-    py_bindproperty(type, "x", Vector2__get_x, Vector2__set_x);
-    py_bindproperty(type, "y", Vector2__get_y, Vector2__set_y);
-    return type;
-}
-static py_Type tp_user_Vector2;
-static bool Vector3__new__(int argc, py_Ref argv) {
-    py_Type cls = py_totype(argv);
-    py_newobject(py_retval(), cls, 0, sizeof(Vector3));
-    return true;
-}
-static bool Vector3__init__(int argc, py_Ref argv) {
-    Vector3* self = py_touserdata(argv);
-    if(argc == 1) {
-        memset(self, 0, sizeof(Vector3));
-    } else if(argc == 1 + 3) {
-        if(!py_castfloat32(py_arg(1), &self->x)) return false;
-        if(!py_castfloat32(py_arg(2), &self->y)) return false;
-        if(!py_castfloat32(py_arg(3), &self->z)) return false;
-    } else {
-        return TypeError("expected 1 or 4 arguments");
-    }
-    py_newnone(py_retval());
-    return true;
-}
-static bool Vector3__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector3* self = py_touserdata(argv);
-    Vector3* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Vector3));
-    *res = *self;
-    return true;
-}
-static bool Vector3__get_x(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector3* self = py_touserdata(argv);
-    py_newfloat(py_retval(), self->x);
-    return true;
-}
-static bool Vector3__set_x(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Vector3* self = py_touserdata(argv);
-    if(!py_castfloat32(py_arg(1), &self->x)) return false;
-    py_newnone(py_retval());
-    return true;
-}
-static bool Vector3__get_y(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector3* self = py_touserdata(argv);
-    py_newfloat(py_retval(), self->y);
-    return true;
-}
-static bool Vector3__set_y(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Vector3* self = py_touserdata(argv);
-    if(!py_castfloat32(py_arg(1), &self->y)) return false;
-    py_newnone(py_retval());
-    return true;
-}
-static bool Vector3__get_z(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector3* self = py_touserdata(argv);
-    py_newfloat(py_retval(), self->z);
-    return true;
-}
-static bool Vector3__set_z(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Vector3* self = py_touserdata(argv);
-    if(!py_castfloat32(py_arg(1), &self->z)) return false;
-    py_newnone(py_retval());
-    return true;
-}
-static py_Type register__Vector3(py_GlobalRef mod) {
-    py_Type type = py_newtype("Vector3", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Vector3__new__);
-    py_bindmagic(type, __init__, Vector3__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Vector3__copy__);
-    py_bindproperty(type, "x", Vector3__get_x, Vector3__set_x);
-    py_bindproperty(type, "y", Vector3__get_y, Vector3__set_y);
-    py_bindproperty(type, "z", Vector3__get_z, Vector3__set_z);
-    return type;
-}
-static py_Type tp_user_Vector3;
 static bool Vector4__new__(int argc, py_Ref argv) {
     py_Type cls = py_totype(argv);
     py_newobject(py_retval(), cls, 0, sizeof(Vector4));
@@ -520,106 +381,6 @@ static py_Type register__Matrix(py_GlobalRef mod) {
     return type;
 }
 static py_Type tp_user_Matrix;
-static bool Color__new__(int argc, py_Ref argv) {
-    py_Type cls = py_totype(argv);
-    py_newobject(py_retval(), cls, 0, sizeof(Color));
-    return true;
-}
-static bool Color__init__(int argc, py_Ref argv) {
-    Color* self = py_touserdata(argv);
-    if(argc == 1) {
-        memset(self, 0, sizeof(Color));
-    } else if(argc == 1 + 4) {
-        if(!py_checkint(py_arg(1))) return false;
-        self->r = py_toint(py_arg(1));
-        if(!py_checkint(py_arg(2))) return false;
-        self->g = py_toint(py_arg(2));
-        if(!py_checkint(py_arg(3))) return false;
-        self->b = py_toint(py_arg(3));
-        if(!py_checkint(py_arg(4))) return false;
-        self->a = py_toint(py_arg(4));
-    } else {
-        return TypeError("expected 1 or 5 arguments");
-    }
-    py_newnone(py_retval());
-    return true;
-}
-static bool Color__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Color* self = py_touserdata(argv);
-    Color* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Color));
-    *res = *self;
-    return true;
-}
-static bool Color__get_r(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Color* self = py_touserdata(argv);
-    py_newint(py_retval(), self->r);
-    return true;
-}
-static bool Color__set_r(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Color* self = py_touserdata(argv);
-    if(!py_checkint(py_arg(1))) return false;
-    self->r = py_toint(py_arg(1));
-    py_newnone(py_retval());
-    return true;
-}
-static bool Color__get_g(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Color* self = py_touserdata(argv);
-    py_newint(py_retval(), self->g);
-    return true;
-}
-static bool Color__set_g(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Color* self = py_touserdata(argv);
-    if(!py_checkint(py_arg(1))) return false;
-    self->g = py_toint(py_arg(1));
-    py_newnone(py_retval());
-    return true;
-}
-static bool Color__get_b(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Color* self = py_touserdata(argv);
-    py_newint(py_retval(), self->b);
-    return true;
-}
-static bool Color__set_b(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Color* self = py_touserdata(argv);
-    if(!py_checkint(py_arg(1))) return false;
-    self->b = py_toint(py_arg(1));
-    py_newnone(py_retval());
-    return true;
-}
-static bool Color__get_a(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Color* self = py_touserdata(argv);
-    py_newint(py_retval(), self->a);
-    return true;
-}
-static bool Color__set_a(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(2);
-    Color* self = py_touserdata(argv);
-    if(!py_checkint(py_arg(1))) return false;
-    self->a = py_toint(py_arg(1));
-    py_newnone(py_retval());
-    return true;
-}
-static py_Type register__Color(py_GlobalRef mod) {
-    py_Type type = py_newtype("Color", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Color__new__);
-    py_bindmagic(type, __init__, Color__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Color__copy__);
-    py_bindproperty(type, "r", Color__get_r, Color__set_r);
-    py_bindproperty(type, "g", Color__get_g, Color__set_g);
-    py_bindproperty(type, "b", Color__get_b, Color__set_b);
-    py_bindproperty(type, "a", Color__get_a, Color__set_a);
-    return type;
-}
-static py_Type tp_user_Color;
 static bool Rectangle__new__(int argc, py_Ref argv) {
     py_Type cls = py_totype(argv);
     py_newobject(py_retval(), cls, 0, sizeof(Rectangle));
@@ -2092,8 +1853,9 @@ static bool MaterialMap__init__(int argc, py_Ref argv) {
             self->texture = *(Texture2D*)py_touserdata(py_arg(1));
         } while(0);
         do {
-            if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-            self->color = *(Color*)py_touserdata(py_arg(2));
+            if(!py_checktype(py_arg(2), tp_color32)) return false;
+            c11_color32 tmp = py_tocolor32(py_arg(2));
+            self->color = *(Color*)(&tmp);
         } while(0);
         if(!py_castfloat32(py_arg(3), &self->value)) return false;
     } else {
@@ -2131,18 +1893,16 @@ static bool MaterialMap__set_texture(int argc, py_Ref argv) {
 static bool MaterialMap__get_color(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     MaterialMap* self = py_touserdata(argv);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = self->color;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&self->color));
     return true;
 }
 static bool MaterialMap__set_color(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     MaterialMap* self = py_touserdata(argv);
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        self->color = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        self->color = *(Color*)(&tmp);
     } while(0);
     py_newnone(py_retval());
     return true;
@@ -4316,8 +4076,9 @@ static bool cfunc__ClearBackground(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     ClearBackground(_0);
     py_newnone(py_retval());
@@ -5878,8 +5639,9 @@ static bool cfunc__DrawPixel(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawPixel(_0, _1, _2);
     py_newnone(py_retval());
@@ -5895,8 +5657,9 @@ static bool cfunc__DrawPixelV(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     DrawPixelV(_0, _1);
     py_newnone(py_retval());
@@ -5918,8 +5681,9 @@ static bool cfunc__DrawLine(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawLine(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -5941,8 +5705,9 @@ static bool cfunc__DrawLineV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawLineV(_0, _1, _2);
     py_newnone(py_retval());
@@ -5966,8 +5731,9 @@ static bool cfunc__DrawLineEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawLineEx(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -5983,8 +5749,9 @@ static bool cfunc__DrawLineStrip(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawLineStrip(_0, _1, _2);
     py_newnone(py_retval());
@@ -6008,8 +5775,9 @@ static bool cfunc__DrawLineBezier(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawLineBezier(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6027,8 +5795,9 @@ static bool cfunc__DrawCircle(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawCircle(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6053,8 +5822,9 @@ static bool cfunc__DrawCircleSector(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCircleSector(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6079,8 +5849,9 @@ static bool cfunc__DrawCircleSectorLines(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCircleSectorLines(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6098,13 +5869,15 @@ static bool cfunc__DrawCircleGradient(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawCircleGradient(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6122,8 +5895,9 @@ static bool cfunc__DrawCircleV(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawCircleV(_0, _1, _2);
     py_newnone(py_retval());
@@ -6141,8 +5915,9 @@ static bool cfunc__DrawCircleLines(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawCircleLines(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6160,8 +5935,9 @@ static bool cfunc__DrawCircleLinesV(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawCircleLinesV(_0, _1, _2);
     py_newnone(py_retval());
@@ -6181,8 +5957,9 @@ static bool cfunc__DrawEllipse(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawEllipse(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6202,8 +5979,9 @@ static bool cfunc__DrawEllipseLines(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawEllipseLines(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6230,8 +6008,9 @@ static bool cfunc__DrawRing(int argc, py_Ref argv) {
     _5 = py_toint(py_arg(5));
     Color _6;
     do {
-        if(!py_checktype(py_arg(6), tp_user_Color)) return false;
-        _6 = *(Color*)py_touserdata(py_arg(6));
+        if(!py_checktype(py_arg(6), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(6));
+        _6 = *(Color*)(&tmp);
     } while(0);
     DrawRing(_0, _1, _2, _3, _4, _5, _6);
     py_newnone(py_retval());
@@ -6258,8 +6037,9 @@ static bool cfunc__DrawRingLines(int argc, py_Ref argv) {
     _5 = py_toint(py_arg(5));
     Color _6;
     do {
-        if(!py_checktype(py_arg(6), tp_user_Color)) return false;
-        _6 = *(Color*)py_touserdata(py_arg(6));
+        if(!py_checktype(py_arg(6), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(6));
+        _6 = *(Color*)(&tmp);
     } while(0);
     DrawRingLines(_0, _1, _2, _3, _4, _5, _6);
     py_newnone(py_retval());
@@ -6281,8 +6061,9 @@ static bool cfunc__DrawRectangle(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawRectangle(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6304,8 +6085,9 @@ static bool cfunc__DrawRectangleV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleV(_0, _1, _2);
     py_newnone(py_retval());
@@ -6320,8 +6102,9 @@ static bool cfunc__DrawRectangleRec(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleRec(_0, _1);
     py_newnone(py_retval());
@@ -6344,8 +6127,9 @@ static bool cfunc__DrawRectanglePro(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawRectanglePro(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6367,13 +6151,15 @@ static bool cfunc__DrawRectangleGradientV(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleGradientV(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6395,13 +6181,15 @@ static bool cfunc__DrawRectangleGradientH(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleGradientH(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6416,23 +6204,27 @@ static bool cfunc__DrawRectangleGradientEx(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleGradientEx(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6454,8 +6246,9 @@ static bool cfunc__DrawRectangleLines(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleLines(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6472,8 +6265,9 @@ static bool cfunc__DrawRectangleLinesEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleLinesEx(_0, _1, _2);
     py_newnone(py_retval());
@@ -6493,8 +6287,9 @@ static bool cfunc__DrawRectangleRounded(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleRounded(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6514,8 +6309,9 @@ static bool cfunc__DrawRectangleRoundedLines(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleRoundedLines(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6537,8 +6333,9 @@ static bool cfunc__DrawRectangleRoundedLinesEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawRectangleRoundedLinesEx(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6566,8 +6363,9 @@ static bool cfunc__DrawTriangle(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawTriangle(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6595,8 +6393,9 @@ static bool cfunc__DrawTriangleLines(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawTriangleLines(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6612,8 +6411,9 @@ static bool cfunc__DrawTriangleFan(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawTriangleFan(_0, _1, _2);
     py_newnone(py_retval());
@@ -6629,8 +6429,9 @@ static bool cfunc__DrawTriangleStrip(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawTriangleStrip(_0, _1, _2);
     py_newnone(py_retval());
@@ -6653,8 +6454,9 @@ static bool cfunc__DrawPoly(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawPoly(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6677,8 +6479,9 @@ static bool cfunc__DrawPolyLines(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawPolyLines(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6703,8 +6506,9 @@ static bool cfunc__DrawPolyLinesEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawPolyLinesEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6722,8 +6526,9 @@ static bool cfunc__DrawSplineLinear(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineLinear(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6741,8 +6546,9 @@ static bool cfunc__DrawSplineBasis(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineBasis(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6760,8 +6566,9 @@ static bool cfunc__DrawSplineCatmullRom(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineCatmullRom(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6779,8 +6586,9 @@ static bool cfunc__DrawSplineBezierQuadratic(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineBezierQuadratic(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6798,8 +6606,9 @@ static bool cfunc__DrawSplineBezierCubic(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineBezierCubic(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6823,8 +6632,9 @@ static bool cfunc__DrawSplineSegmentLinear(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawSplineSegmentLinear(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -6860,8 +6670,9 @@ static bool cfunc__DrawSplineSegmentBasis(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawSplineSegmentBasis(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6897,8 +6708,9 @@ static bool cfunc__DrawSplineSegmentCatmullRom(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawSplineSegmentCatmullRom(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -6928,8 +6740,9 @@ static bool cfunc__DrawSplineSegmentBezierQuadratic(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawSplineSegmentBezierQuadratic(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -6965,8 +6778,9 @@ static bool cfunc__DrawSplineSegmentBezierCubic(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawSplineSegmentBezierCubic(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -7551,8 +7365,9 @@ static bool cfunc__GenImageColor(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     Image res = GenImageColor(_0, _1, _2);
     do {
@@ -7574,13 +7389,15 @@ static bool cfunc__GenImageGradientLinear(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Image res = GenImageGradientLinear(_0, _1, _2, _3, _4);
     do {
@@ -7601,13 +7418,15 @@ static bool cfunc__GenImageGradientRadial(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Image res = GenImageGradientRadial(_0, _1, _2, _3, _4);
     do {
@@ -7628,13 +7447,15 @@ static bool cfunc__GenImageGradientSquare(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Image res = GenImageGradientSquare(_0, _1, _2, _3, _4);
     do {
@@ -7659,13 +7480,15 @@ static bool cfunc__GenImageChecked(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     Image res = GenImageChecked(_0, _1, _2, _3, _4, _5);
     do {
@@ -7810,8 +7633,9 @@ static bool cfunc__ImageText(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     Image res = ImageText(_0, _1, _2);
     do {
@@ -7836,8 +7660,9 @@ static bool cfunc__ImageTextEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Image res = ImageTextEx(_0, _1, _2, _3, _4);
     do {
@@ -7865,8 +7690,9 @@ static bool cfunc__ImageToPOT(int argc, py_Ref argv) {
     _0 = (Image *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     ImageToPOT(_0, _1);
     py_newnone(py_retval());
@@ -7904,8 +7730,9 @@ static bool cfunc__ImageAlphaClear(int argc, py_Ref argv) {
     _0 = (Image *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     float _2;
     if(!py_castfloat32(py_arg(2), &_2)) return false;
@@ -8012,8 +7839,9 @@ static bool cfunc__ImageResizeCanvas(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     ImageResizeCanvas(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -8104,8 +7932,9 @@ static bool cfunc__ImageColorTint(int argc, py_Ref argv) {
     _0 = (Image *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     ImageColorTint(_0, _1);
     py_newnone(py_retval());
@@ -8159,13 +7988,15 @@ static bool cfunc__ImageColorReplace(int argc, py_Ref argv) {
     _0 = (Image *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     ImageColorReplace(_0, _1, _2);
     py_newnone(py_retval());
@@ -8247,10 +8078,7 @@ static bool cfunc__GetImageColor(int argc, py_Ref argv) {
     if(!py_checkint(py_arg(2))) return false;
     _2 = py_toint(py_arg(2));
     Color res = GetImageColor(_0, _1, _2);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ImageClearBackground(int argc, py_Ref argv) {
@@ -8260,8 +8088,9 @@ static bool cfunc__ImageClearBackground(int argc, py_Ref argv) {
     _0 = (Image *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     ImageClearBackground(_0, _1);
     py_newnone(py_retval());
@@ -8280,8 +8109,9 @@ static bool cfunc__ImageDrawPixel(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawPixel(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8300,8 +8130,9 @@ static bool cfunc__ImageDrawPixelV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     ImageDrawPixelV(_0, _1, _2);
     py_newnone(py_retval());
@@ -8326,8 +8157,9 @@ static bool cfunc__ImageDrawLine(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     ImageDrawLine(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -8352,8 +8184,9 @@ static bool cfunc__ImageDrawLineV(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawLineV(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8381,8 +8214,9 @@ static bool cfunc__ImageDrawLineEx(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDrawLineEx(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8404,8 +8238,9 @@ static bool cfunc__ImageDrawCircle(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDrawCircle(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8427,8 +8262,9 @@ static bool cfunc__ImageDrawCircleV(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawCircleV(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8450,8 +8286,9 @@ static bool cfunc__ImageDrawCircleLines(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDrawCircleLines(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8473,8 +8310,9 @@ static bool cfunc__ImageDrawCircleLinesV(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawCircleLinesV(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8499,8 +8337,9 @@ static bool cfunc__ImageDrawRectangle(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     ImageDrawRectangle(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -8525,8 +8364,9 @@ static bool cfunc__ImageDrawRectangleV(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawRectangleV(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8544,8 +8384,9 @@ static bool cfunc__ImageDrawRectangleRec(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     ImageDrawRectangleRec(_0, _1, _2);
     py_newnone(py_retval());
@@ -8566,8 +8407,9 @@ static bool cfunc__ImageDrawRectangleLines(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawRectangleLines(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8598,8 +8440,9 @@ static bool cfunc__ImageDrawTriangle(int argc, py_Ref argv) {
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTriangle(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8630,18 +8473,21 @@ static bool cfunc__ImageDrawTriangleEx(int argc, py_Ref argv) {
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     Color _6;
     do {
-        if(!py_checktype(py_arg(6), tp_user_Color)) return false;
-        _6 = *(Color*)py_touserdata(py_arg(6));
+        if(!py_checktype(py_arg(6), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(6));
+        _6 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTriangleEx(_0, _1, _2, _3, _4, _5, _6);
     py_newnone(py_retval());
@@ -8672,8 +8518,9 @@ static bool cfunc__ImageDrawTriangleLines(int argc, py_Ref argv) {
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTriangleLines(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8692,8 +8539,9 @@ static bool cfunc__ImageDrawTriangleFan(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTriangleFan(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8712,8 +8560,9 @@ static bool cfunc__ImageDrawTriangleStrip(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTriangleStrip(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -8741,8 +8590,9 @@ static bool cfunc__ImageDraw(int argc, py_Ref argv) {
     } while(0);
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     ImageDraw(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -8767,8 +8617,9 @@ static bool cfunc__ImageDrawText(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     ImageDrawText(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -8799,8 +8650,9 @@ static bool cfunc__ImageDrawTextEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(5), &_5)) return false;
     Color _6;
     do {
-        if(!py_checktype(py_arg(6), tp_user_Color)) return false;
-        _6 = *(Color*)py_touserdata(py_arg(6));
+        if(!py_checktype(py_arg(6), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(6));
+        _6 = *(Color*)(&tmp);
     } while(0);
     ImageDrawTextEx(_0, _1, _2, _3, _4, _5, _6);
     py_newnone(py_retval());
@@ -8993,8 +8845,9 @@ static bool cfunc__DrawTexture(int argc, py_Ref argv) {
     _2 = py_toint(py_arg(2));
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawTexture(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -9015,8 +8868,9 @@ static bool cfunc__DrawTextureV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawTextureV(_0, _1, _2);
     py_newnone(py_retval());
@@ -9041,8 +8895,9 @@ static bool cfunc__DrawTextureEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawTextureEx(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -9068,8 +8923,9 @@ static bool cfunc__DrawTextureRec(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawTextureRec(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -9102,8 +8958,9 @@ static bool cfunc__DrawTexturePro(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawTexturePro(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -9136,8 +8993,9 @@ static bool cfunc__DrawTextureNPatch(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawTextureNPatch(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -9147,13 +9005,15 @@ static bool cfunc__ColorIsEqual(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     bool res = ColorIsEqual(_0, _1);
     py_newbool(py_retval(), res);
@@ -9163,24 +9023,23 @@ static bool cfunc__Fade(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     float _1;
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color res = Fade(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorToInt(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     int res = ColorToInt(_0);
     py_newint(py_retval(), res);
@@ -9190,8 +9049,9 @@ static bool cfunc__ColorNormalize(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Vector4 res = ColorNormalize(_0);
     do {
@@ -9208,18 +9068,16 @@ static bool cfunc__ColorFromNormalized(int argc, py_Ref argv) {
         _0 = *(Vector4*)py_touserdata(py_arg(0));
     } while(0);
     Color res = ColorFromNormalized(_0);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorToHSV(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Vector3 res = ColorToHSV(_0);
     py_newvec3(py_retval(), *(c11_vec3*)(&res));
@@ -9234,122 +9092,111 @@ static bool cfunc__ColorFromHSV(int argc, py_Ref argv) {
     float _2;
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color res = ColorFromHSV(_0, _1, _2);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorTint(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     Color res = ColorTint(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorBrightness(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     float _1;
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color res = ColorBrightness(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorContrast(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     float _1;
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color res = ColorContrast(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorAlpha(int argc, py_Ref argv) {
     PY_CHECK_ARGC(2);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     float _1;
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color res = ColorAlpha(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorAlphaBlend(int argc, py_Ref argv) {
     PY_CHECK_ARGC(3);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     Color res = ColorAlphaBlend(_0, _1, _2);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__ColorLerp(int argc, py_Ref argv) {
     PY_CHECK_ARGC(3);
     Color _0;
     do {
-        if(!py_checktype(py_arg(0), tp_user_Color)) return false;
-        _0 = *(Color*)py_touserdata(py_arg(0));
+        if(!py_checktype(py_arg(0), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(0));
+        _0 = *(Color*)(&tmp);
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     float _2;
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color res = ColorLerp(_0, _1, _2);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__GetColor(int argc, py_Ref argv) {
@@ -9358,10 +9205,7 @@ static bool cfunc__GetColor(int argc, py_Ref argv) {
     if(!py_checkint(py_arg(0))) return false;
     _0 = py_toint(py_arg(0));
     Color res = GetColor(_0);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__GetPixelColor(int argc, py_Ref argv) {
@@ -9373,10 +9217,7 @@ static bool cfunc__GetPixelColor(int argc, py_Ref argv) {
     if(!py_checkint(py_arg(1))) return false;
     _1 = py_toint(py_arg(1));
     Color res = GetPixelColor(_0, _1);
-    do {
-        Color* ud = py_newobject(py_retval(), tp_user_Color, 0, sizeof(Color));
-        *ud = res;
-    } while(0);
+    py_newcolor32(py_retval(), *(c11_color32*)(&res));
     return true;
 }
 static bool cfunc__SetPixelColor(int argc, py_Ref argv) {
@@ -9386,8 +9227,9 @@ static bool cfunc__SetPixelColor(int argc, py_Ref argv) {
     _0 = (void *)py_toint(py_arg(0));
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     int _2;
     if(!py_checkint(py_arg(2))) return false;
@@ -9462,8 +9304,9 @@ static bool cfunc__LoadFontFromImage(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     int _2;
     if(!py_checkint(py_arg(2))) return false;
@@ -9629,8 +9472,9 @@ static bool cfunc__DrawText(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawText(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -9658,8 +9502,9 @@ static bool cfunc__DrawTextEx(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(4), &_4)) return false;
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawTextEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -9695,8 +9540,9 @@ static bool cfunc__DrawTextPro(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(6), &_6)) return false;
     Color _7;
     do {
-        if(!py_checktype(py_arg(7), tp_user_Color)) return false;
-        _7 = *(Color*)py_touserdata(py_arg(7));
+        if(!py_checktype(py_arg(7), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(7));
+        _7 = *(Color*)(&tmp);
     } while(0);
     DrawTextPro(_0, _1, _2, _3, _4, _5, _6, _7);
     py_newnone(py_retval());
@@ -9722,8 +9568,9 @@ static bool cfunc__DrawTextCodepoint(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawTextCodepoint(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -9754,8 +9601,9 @@ static bool cfunc__DrawTextCodepoints(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(5), &_5)) return false;
     Color _6;
     do {
-        if(!py_checktype(py_arg(6), tp_user_Color)) return false;
-        _6 = *(Color*)py_touserdata(py_arg(6));
+        if(!py_checktype(py_arg(6), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(6));
+        _6 = *(Color*)(&tmp);
     } while(0);
     DrawTextCodepoints(_0, _1, _2, _3, _4, _5, _6);
     py_newnone(py_retval());
@@ -10161,8 +10009,9 @@ static bool cfunc__DrawLine3D(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawLine3D(_0, _1, _2);
     py_newnone(py_retval());
@@ -10178,8 +10027,9 @@ static bool cfunc__DrawPoint3D(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     DrawPoint3D(_0, _1);
     py_newnone(py_retval());
@@ -10205,8 +10055,9 @@ static bool cfunc__DrawCircle3D(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawCircle3D(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10234,8 +10085,9 @@ static bool cfunc__DrawTriangle3D(int argc, py_Ref argv) {
     } while(0);
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawTriangle3D(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -10251,8 +10103,9 @@ static bool cfunc__DrawTriangleStrip3D(int argc, py_Ref argv) {
     _1 = py_toint(py_arg(1));
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawTriangleStrip3D(_0, _1, _2);
     py_newnone(py_retval());
@@ -10274,8 +10127,9 @@ static bool cfunc__DrawCube(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawCube(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10297,8 +10151,9 @@ static bool cfunc__DrawCubeV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawCubeV(_0, _1, _2);
     py_newnone(py_retval());
@@ -10320,8 +10175,9 @@ static bool cfunc__DrawCubeWires(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawCubeWires(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10343,8 +10199,9 @@ static bool cfunc__DrawCubeWiresV(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawCubeWiresV(_0, _1, _2);
     py_newnone(py_retval());
@@ -10362,8 +10219,9 @@ static bool cfunc__DrawSphere(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(1), &_1)) return false;
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawSphere(_0, _1, _2);
     py_newnone(py_retval());
@@ -10387,8 +10245,9 @@ static bool cfunc__DrawSphereEx(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawSphereEx(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10412,8 +10271,9 @@ static bool cfunc__DrawSphereWires(int argc, py_Ref argv) {
     _3 = py_toint(py_arg(3));
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawSphereWires(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10438,8 +10298,9 @@ static bool cfunc__DrawCylinder(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCylinder(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10468,8 +10329,9 @@ static bool cfunc__DrawCylinderEx(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCylinderEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10494,8 +10356,9 @@ static bool cfunc__DrawCylinderWires(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCylinderWires(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10524,8 +10387,9 @@ static bool cfunc__DrawCylinderWiresEx(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCylinderWiresEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10555,8 +10419,9 @@ static bool cfunc__DrawCapsule(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCapsule(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10586,8 +10451,9 @@ static bool cfunc__DrawCapsuleWires(int argc, py_Ref argv) {
     _4 = py_toint(py_arg(4));
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawCapsuleWires(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10609,8 +10475,9 @@ static bool cfunc__DrawPlane(int argc, py_Ref argv) {
     } while(0);
     Color _2;
     do {
-        if(!py_checktype(py_arg(2), tp_user_Color)) return false;
-        _2 = *(Color*)py_touserdata(py_arg(2));
+        if(!py_checktype(py_arg(2), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(2));
+        _2 = *(Color*)(&tmp);
     } while(0);
     DrawPlane(_0, _1, _2);
     py_newnone(py_retval());
@@ -10625,8 +10492,9 @@ static bool cfunc__DrawRay(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     DrawRay(_0, _1);
     py_newnone(py_retval());
@@ -10722,8 +10590,9 @@ static bool cfunc__DrawModel(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawModel(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -10758,8 +10627,9 @@ static bool cfunc__DrawModelEx(int argc, py_Ref argv) {
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawModelEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10782,8 +10652,9 @@ static bool cfunc__DrawModelWires(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawModelWires(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -10818,8 +10689,9 @@ static bool cfunc__DrawModelWiresEx(int argc, py_Ref argv) {
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawModelWiresEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10842,8 +10714,9 @@ static bool cfunc__DrawModelPoints(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(2), &_2)) return false;
     Color _3;
     do {
-        if(!py_checktype(py_arg(3), tp_user_Color)) return false;
-        _3 = *(Color*)py_touserdata(py_arg(3));
+        if(!py_checktype(py_arg(3), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(3));
+        _3 = *(Color*)(&tmp);
     } while(0);
     DrawModelPoints(_0, _1, _2, _3);
     py_newnone(py_retval());
@@ -10878,8 +10751,9 @@ static bool cfunc__DrawModelPointsEx(int argc, py_Ref argv) {
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawModelPointsEx(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -10894,8 +10768,9 @@ static bool cfunc__DrawBoundingBox(int argc, py_Ref argv) {
     } while(0);
     Color _1;
     do {
-        if(!py_checktype(py_arg(1), tp_user_Color)) return false;
-        _1 = *(Color*)py_touserdata(py_arg(1));
+        if(!py_checktype(py_arg(1), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(1));
+        _1 = *(Color*)(&tmp);
     } while(0);
     DrawBoundingBox(_0, _1);
     py_newnone(py_retval());
@@ -10923,8 +10798,9 @@ static bool cfunc__DrawBillboard(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(3), &_3)) return false;
     Color _4;
     do {
-        if(!py_checktype(py_arg(4), tp_user_Color)) return false;
-        _4 = *(Color*)py_touserdata(py_arg(4));
+        if(!py_checktype(py_arg(4), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(4));
+        _4 = *(Color*)(&tmp);
     } while(0);
     DrawBillboard(_0, _1, _2, _3, _4);
     py_newnone(py_retval());
@@ -10961,8 +10837,9 @@ static bool cfunc__DrawBillboardRec(int argc, py_Ref argv) {
     } while(0);
     Color _5;
     do {
-        if(!py_checktype(py_arg(5), tp_user_Color)) return false;
-        _5 = *(Color*)py_touserdata(py_arg(5));
+        if(!py_checktype(py_arg(5), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(5));
+        _5 = *(Color*)(&tmp);
     } while(0);
     DrawBillboardRec(_0, _1, _2, _3, _4, _5);
     py_newnone(py_retval());
@@ -11013,8 +10890,9 @@ static bool cfunc__DrawBillboardPro(int argc, py_Ref argv) {
     if(!py_castfloat32(py_arg(7), &_7)) return false;
     Color _8;
     do {
-        if(!py_checktype(py_arg(8), tp_user_Color)) return false;
-        _8 = *(Color*)py_touserdata(py_arg(8));
+        if(!py_checktype(py_arg(8), tp_color32)) return false;
+        c11_color32 tmp = py_tocolor32(py_arg(8));
+        _8 = *(Color*)(&tmp);
     } while(0);
     DrawBillboardPro(_0, _1, _2, _3, _4, _5, _6, _7, _8);
     py_newnone(py_retval());
@@ -12437,11 +12315,8 @@ static bool cfunc__SetAudioStreamBufferSizeDefault(int argc, py_Ref argv) {
 void py__add_module_raylib() {
     py_GlobalRef mod = py_newmodule("raylib");
     /* structs */
-    tp_user_Vector2 = register__Vector2(mod);
-    tp_user_Vector3 = register__Vector3(mod);
     tp_user_Vector4 = register__Vector4(mod);
     tp_user_Matrix = register__Matrix(mod);
-    tp_user_Color = register__Color(mod);
     tp_user_Rectangle = register__Rectangle(mod);
     tp_user_Image = register__Image(mod);
     tp_user_Texture = register__Texture(mod);

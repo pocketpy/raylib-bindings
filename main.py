@@ -1,9 +1,10 @@
 import raylib as rl
+from vmath import color32
 
 rl.InitWindow(800, 450, "raylib [core] example - basic window")
 
-RAYWHITE = rl.Color(34, 34, 34, 255)
-LIGHTGRAY = rl.Color(200, 200, 200, 255)
+RAYWHITE = color32(34, 34, 34, 255)
+LIGHTGRAY = color32(200, 200, 200, 255)
 
 while not rl.WindowShouldClose():
     rl.BeginDrawing()

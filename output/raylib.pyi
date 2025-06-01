@@ -1,30 +1,7 @@
-from linalg import vec2, vec3, vec2i, vec3i, mat3x3
+from vmath import vec2, vec3, vec2i, vec3i, mat3x3
 from typing import overload
 intptr = int
 
-class Vector2:
-    x: float # Vector x component (float)
-    y: float # Vector y component (float)
-    
-    @overload
-    def __init__(self): ...
-    @overload
-    def __init__(self, x: float, y: float): ...
-    def __address__(self) -> int: ...
-    def copy(self) -> 'Vector2': ...
-    
-class Vector3:
-    x: float # Vector x component (float)
-    y: float # Vector y component (float)
-    z: float # Vector z component (float)
-    
-    @overload
-    def __init__(self): ...
-    @overload
-    def __init__(self, x: float, y: float, z: float): ...
-    def __address__(self) -> int: ...
-    def copy(self) -> 'Vector3': ...
-    
 class Vector4:
     x: float # Vector x component (float)
     y: float # Vector y component (float)
@@ -62,19 +39,6 @@ class Matrix:
     def __init__(self, m0: float, m4: float, m8: float, m12: float, m1: float, m5: float, m9: float, m13: float, m2: float, m6: float, m10: float, m14: float, m3: float, m7: float, m11: float, m15: float): ...
     def __address__(self) -> int: ...
     def copy(self) -> 'Matrix': ...
-    
-class Color:
-    r: int # Color red value (unsigned char)
-    g: int # Color green value (unsigned char)
-    b: int # Color blue value (unsigned char)
-    a: int # Color alpha value (unsigned char)
-    
-    @overload
-    def __init__(self): ...
-    @overload
-    def __init__(self, r: int, g: int, b: int, a: int): ...
-    def __address__(self) -> int: ...
-    def copy(self) -> 'Color': ...
     
 class Rectangle:
     x: float # Rectangle top-left corner position x (float)
@@ -239,13 +203,13 @@ class Shader:
     
 class MaterialMap:
     texture: Texture2D # Material map texture (Texture2D)
-    color: Color # Material map color (Color)
+    color: color32 # Material map color (Color)
     value: float # Material map value (float)
     
     @overload
     def __init__(self): ...
     @overload
-    def __init__(self, texture: Texture2D, color: Color, value: float): ...
+    def __init__(self, texture: Texture2D, color: color32, value: float): ...
     def __address__(self) -> int: ...
     def copy(self) -> 'MaterialMap': ...
     
@@ -745,7 +709,7 @@ def IsCursorOnScreen() -> bool:
 
     Check if cursor is on the screen"""
 
-def ClearBackground(color: Color) -> None:
+def ClearBackground(color: color32) -> None:
     """Wraps `void ClearBackground(Color color)`
 
     Set background color (framebuffer clear color)"""
@@ -1495,237 +1459,237 @@ def GetShapesTextureRectangle() -> Rectangle:
 
     Get texture source rectangle that is used for shapes drawing"""
 
-def DrawPixel(posX: int, posY: int, color: Color) -> None:
+def DrawPixel(posX: int, posY: int, color: color32) -> None:
     """Wraps `void DrawPixel(int posX, int posY, Color color)`
 
     Draw a pixel using geometry [Can be slow, use with care]"""
 
-def DrawPixelV(position: vec2, color: Color) -> None:
+def DrawPixelV(position: vec2, color: color32) -> None:
     """Wraps `void DrawPixelV(Vector2 position, Color color)`
 
     Draw a pixel using geometry (Vector version) [Can be slow, use with care]"""
 
-def DrawLine(startPosX: int, startPosY: int, endPosX: int, endPosY: int, color: Color) -> None:
+def DrawLine(startPosX: int, startPosY: int, endPosX: int, endPosY: int, color: color32) -> None:
     """Wraps `void DrawLine(int startPosX, int startPosY, int endPosX, int endPosY, Color color)`
 
     Draw a line"""
 
-def DrawLineV(startPos: vec2, endPos: vec2, color: Color) -> None:
+def DrawLineV(startPos: vec2, endPos: vec2, color: color32) -> None:
     """Wraps `void DrawLineV(Vector2 startPos, Vector2 endPos, Color color)`
 
     Draw a line (using gl lines)"""
 
-def DrawLineEx(startPos: vec2, endPos: vec2, thick: float, color: Color) -> None:
+def DrawLineEx(startPos: vec2, endPos: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color)`
 
     Draw a line (using triangles/quads)"""
 
-def DrawLineStrip(points: intptr, pointCount: int, color: Color) -> None:
+def DrawLineStrip(points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void DrawLineStrip(const Vector2 * points, int pointCount, Color color)`
 
     Draw lines sequence (using gl lines)"""
 
-def DrawLineBezier(startPos: vec2, endPos: vec2, thick: float, color: Color) -> None:
+def DrawLineBezier(startPos: vec2, endPos: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawLineBezier(Vector2 startPos, Vector2 endPos, float thick, Color color)`
 
     Draw line segment cubic-bezier in-out interpolation"""
 
-def DrawCircle(centerX: int, centerY: int, radius: float, color: Color) -> None:
+def DrawCircle(centerX: int, centerY: int, radius: float, color: color32) -> None:
     """Wraps `void DrawCircle(int centerX, int centerY, float radius, Color color)`
 
     Draw a color-filled circle"""
 
-def DrawCircleSector(center: vec2, radius: float, startAngle: float, endAngle: float, segments: int, color: Color) -> None:
+def DrawCircleSector(center: vec2, radius: float, startAngle: float, endAngle: float, segments: int, color: color32) -> None:
     """Wraps `void DrawCircleSector(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)`
 
     Draw a piece of a circle"""
 
-def DrawCircleSectorLines(center: vec2, radius: float, startAngle: float, endAngle: float, segments: int, color: Color) -> None:
+def DrawCircleSectorLines(center: vec2, radius: float, startAngle: float, endAngle: float, segments: int, color: color32) -> None:
     """Wraps `void DrawCircleSectorLines(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)`
 
     Draw circle sector outline"""
 
-def DrawCircleGradient(centerX: int, centerY: int, radius: float, inner: Color, outer: Color) -> None:
+def DrawCircleGradient(centerX: int, centerY: int, radius: float, inner: color32, outer: color32) -> None:
     """Wraps `void DrawCircleGradient(int centerX, int centerY, float radius, Color inner, Color outer)`
 
     Draw a gradient-filled circle"""
 
-def DrawCircleV(center: vec2, radius: float, color: Color) -> None:
+def DrawCircleV(center: vec2, radius: float, color: color32) -> None:
     """Wraps `void DrawCircleV(Vector2 center, float radius, Color color)`
 
     Draw a color-filled circle (Vector version)"""
 
-def DrawCircleLines(centerX: int, centerY: int, radius: float, color: Color) -> None:
+def DrawCircleLines(centerX: int, centerY: int, radius: float, color: color32) -> None:
     """Wraps `void DrawCircleLines(int centerX, int centerY, float radius, Color color)`
 
     Draw circle outline"""
 
-def DrawCircleLinesV(center: vec2, radius: float, color: Color) -> None:
+def DrawCircleLinesV(center: vec2, radius: float, color: color32) -> None:
     """Wraps `void DrawCircleLinesV(Vector2 center, float radius, Color color)`
 
     Draw circle outline (Vector version)"""
 
-def DrawEllipse(centerX: int, centerY: int, radiusH: float, radiusV: float, color: Color) -> None:
+def DrawEllipse(centerX: int, centerY: int, radiusH: float, radiusV: float, color: color32) -> None:
     """Wraps `void DrawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color color)`
 
     Draw ellipse"""
 
-def DrawEllipseLines(centerX: int, centerY: int, radiusH: float, radiusV: float, color: Color) -> None:
+def DrawEllipseLines(centerX: int, centerY: int, radiusH: float, radiusV: float, color: color32) -> None:
     """Wraps `void DrawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color color)`
 
     Draw ellipse outline"""
 
-def DrawRing(center: vec2, innerRadius: float, outerRadius: float, startAngle: float, endAngle: float, segments: int, color: Color) -> None:
+def DrawRing(center: vec2, innerRadius: float, outerRadius: float, startAngle: float, endAngle: float, segments: int, color: color32) -> None:
     """Wraps `void DrawRing(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)`
 
     Draw ring"""
 
-def DrawRingLines(center: vec2, innerRadius: float, outerRadius: float, startAngle: float, endAngle: float, segments: int, color: Color) -> None:
+def DrawRingLines(center: vec2, innerRadius: float, outerRadius: float, startAngle: float, endAngle: float, segments: int, color: color32) -> None:
     """Wraps `void DrawRingLines(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)`
 
     Draw ring outline"""
 
-def DrawRectangle(posX: int, posY: int, width: int, height: int, color: Color) -> None:
+def DrawRectangle(posX: int, posY: int, width: int, height: int, color: color32) -> None:
     """Wraps `void DrawRectangle(int posX, int posY, int width, int height, Color color)`
 
     Draw a color-filled rectangle"""
 
-def DrawRectangleV(position: vec2, size: vec2, color: Color) -> None:
+def DrawRectangleV(position: vec2, size: vec2, color: color32) -> None:
     """Wraps `void DrawRectangleV(Vector2 position, Vector2 size, Color color)`
 
     Draw a color-filled rectangle (Vector version)"""
 
-def DrawRectangleRec(rec: Rectangle, color: Color) -> None:
+def DrawRectangleRec(rec: Rectangle, color: color32) -> None:
     """Wraps `void DrawRectangleRec(Rectangle rec, Color color)`
 
     Draw a color-filled rectangle"""
 
-def DrawRectanglePro(rec: Rectangle, origin: vec2, rotation: float, color: Color) -> None:
+def DrawRectanglePro(rec: Rectangle, origin: vec2, rotation: float, color: color32) -> None:
     """Wraps `void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color)`
 
     Draw a color-filled rectangle with pro parameters"""
 
-def DrawRectangleGradientV(posX: int, posY: int, width: int, height: int, top: Color, bottom: Color) -> None:
+def DrawRectangleGradientV(posX: int, posY: int, width: int, height: int, top: color32, bottom: color32) -> None:
     """Wraps `void DrawRectangleGradientV(int posX, int posY, int width, int height, Color top, Color bottom)`
 
     Draw a vertical-gradient-filled rectangle"""
 
-def DrawRectangleGradientH(posX: int, posY: int, width: int, height: int, left: Color, right: Color) -> None:
+def DrawRectangleGradientH(posX: int, posY: int, width: int, height: int, left: color32, right: color32) -> None:
     """Wraps `void DrawRectangleGradientH(int posX, int posY, int width, int height, Color left, Color right)`
 
     Draw a horizontal-gradient-filled rectangle"""
 
-def DrawRectangleGradientEx(rec: Rectangle, topLeft: Color, bottomLeft: Color, topRight: Color, bottomRight: Color) -> None:
+def DrawRectangleGradientEx(rec: Rectangle, topLeft: color32, bottomLeft: color32, topRight: color32, bottomRight: color32) -> None:
     """Wraps `void DrawRectangleGradientEx(Rectangle rec, Color topLeft, Color bottomLeft, Color topRight, Color bottomRight)`
 
     Draw a gradient-filled rectangle with custom vertex colors"""
 
-def DrawRectangleLines(posX: int, posY: int, width: int, height: int, color: Color) -> None:
+def DrawRectangleLines(posX: int, posY: int, width: int, height: int, color: color32) -> None:
     """Wraps `void DrawRectangleLines(int posX, int posY, int width, int height, Color color)`
 
     Draw rectangle outline"""
 
-def DrawRectangleLinesEx(rec: Rectangle, lineThick: float, color: Color) -> None:
+def DrawRectangleLinesEx(rec: Rectangle, lineThick: float, color: color32) -> None:
     """Wraps `void DrawRectangleLinesEx(Rectangle rec, float lineThick, Color color)`
 
     Draw rectangle outline with extended parameters"""
 
-def DrawRectangleRounded(rec: Rectangle, roundness: float, segments: int, color: Color) -> None:
+def DrawRectangleRounded(rec: Rectangle, roundness: float, segments: int, color: color32) -> None:
     """Wraps `void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color color)`
 
     Draw rectangle with rounded edges"""
 
-def DrawRectangleRoundedLines(rec: Rectangle, roundness: float, segments: int, color: Color) -> None:
+def DrawRectangleRoundedLines(rec: Rectangle, roundness: float, segments: int, color: color32) -> None:
     """Wraps `void DrawRectangleRoundedLines(Rectangle rec, float roundness, int segments, Color color)`
 
     Draw rectangle lines with rounded edges"""
 
-def DrawRectangleRoundedLinesEx(rec: Rectangle, roundness: float, segments: int, lineThick: float, color: Color) -> None:
+def DrawRectangleRoundedLinesEx(rec: Rectangle, roundness: float, segments: int, lineThick: float, color: color32) -> None:
     """Wraps `void DrawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, float lineThick, Color color)`
 
     Draw rectangle with rounded edges outline"""
 
-def DrawTriangle(v1: vec2, v2: vec2, v3: vec2, color: Color) -> None:
+def DrawTriangle(v1: vec2, v2: vec2, v3: vec2, color: color32) -> None:
     """Wraps `void DrawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)`
 
     Draw a color-filled triangle (vertex in counter-clockwise order!)"""
 
-def DrawTriangleLines(v1: vec2, v2: vec2, v3: vec2, color: Color) -> None:
+def DrawTriangleLines(v1: vec2, v2: vec2, v3: vec2, color: color32) -> None:
     """Wraps `void DrawTriangleLines(Vector2 v1, Vector2 v2, Vector2 v3, Color color)`
 
     Draw triangle outline (vertex in counter-clockwise order!)"""
 
-def DrawTriangleFan(points: intptr, pointCount: int, color: Color) -> None:
+def DrawTriangleFan(points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void DrawTriangleFan(const Vector2 * points, int pointCount, Color color)`
 
     Draw a triangle fan defined by points (first vertex is the center)"""
 
-def DrawTriangleStrip(points: intptr, pointCount: int, color: Color) -> None:
+def DrawTriangleStrip(points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void DrawTriangleStrip(const Vector2 * points, int pointCount, Color color)`
 
     Draw a triangle strip defined by points"""
 
-def DrawPoly(center: vec2, sides: int, radius: float, rotation: float, color: Color) -> None:
+def DrawPoly(center: vec2, sides: int, radius: float, rotation: float, color: color32) -> None:
     """Wraps `void DrawPoly(Vector2 center, int sides, float radius, float rotation, Color color)`
 
     Draw a regular polygon (Vector version)"""
 
-def DrawPolyLines(center: vec2, sides: int, radius: float, rotation: float, color: Color) -> None:
+def DrawPolyLines(center: vec2, sides: int, radius: float, rotation: float, color: color32) -> None:
     """Wraps `void DrawPolyLines(Vector2 center, int sides, float radius, float rotation, Color color)`
 
     Draw a polygon outline of n sides"""
 
-def DrawPolyLinesEx(center: vec2, sides: int, radius: float, rotation: float, lineThick: float, color: Color) -> None:
+def DrawPolyLinesEx(center: vec2, sides: int, radius: float, rotation: float, lineThick: float, color: color32) -> None:
     """Wraps `void DrawPolyLinesEx(Vector2 center, int sides, float radius, float rotation, float lineThick, Color color)`
 
     Draw a polygon outline of n sides with extended parameters"""
 
-def DrawSplineLinear(points: intptr, pointCount: int, thick: float, color: Color) -> None:
+def DrawSplineLinear(points: intptr, pointCount: int, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineLinear(const Vector2 * points, int pointCount, float thick, Color color)`
 
     Draw spline: Linear, minimum 2 points"""
 
-def DrawSplineBasis(points: intptr, pointCount: int, thick: float, color: Color) -> None:
+def DrawSplineBasis(points: intptr, pointCount: int, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineBasis(const Vector2 * points, int pointCount, float thick, Color color)`
 
     Draw spline: B-Spline, minimum 4 points"""
 
-def DrawSplineCatmullRom(points: intptr, pointCount: int, thick: float, color: Color) -> None:
+def DrawSplineCatmullRom(points: intptr, pointCount: int, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineCatmullRom(const Vector2 * points, int pointCount, float thick, Color color)`
 
     Draw spline: Catmull-Rom, minimum 4 points"""
 
-def DrawSplineBezierQuadratic(points: intptr, pointCount: int, thick: float, color: Color) -> None:
+def DrawSplineBezierQuadratic(points: intptr, pointCount: int, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineBezierQuadratic(const Vector2 * points, int pointCount, float thick, Color color)`
 
     Draw spline: Quadratic Bezier, minimum 3 points (1 control point): [p1, c2, p3, c4...]"""
 
-def DrawSplineBezierCubic(points: intptr, pointCount: int, thick: float, color: Color) -> None:
+def DrawSplineBezierCubic(points: intptr, pointCount: int, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineBezierCubic(const Vector2 * points, int pointCount, float thick, Color color)`
 
     Draw spline: Cubic Bezier, minimum 4 points (2 control points): [p1, c2, c3, p4, c5, c6...]"""
 
-def DrawSplineSegmentLinear(p1: vec2, p2: vec2, thick: float, color: Color) -> None:
+def DrawSplineSegmentLinear(p1: vec2, p2: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineSegmentLinear(Vector2 p1, Vector2 p2, float thick, Color color)`
 
     Draw spline segment: Linear, 2 points"""
 
-def DrawSplineSegmentBasis(p1: vec2, p2: vec2, p3: vec2, p4: vec2, thick: float, color: Color) -> None:
+def DrawSplineSegmentBasis(p1: vec2, p2: vec2, p3: vec2, p4: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineSegmentBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)`
 
     Draw spline segment: B-Spline, 4 points"""
 
-def DrawSplineSegmentCatmullRom(p1: vec2, p2: vec2, p3: vec2, p4: vec2, thick: float, color: Color) -> None:
+def DrawSplineSegmentCatmullRom(p1: vec2, p2: vec2, p3: vec2, p4: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineSegmentCatmullRom(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)`
 
     Draw spline segment: Catmull-Rom, 4 points"""
 
-def DrawSplineSegmentBezierQuadratic(p1: vec2, c2: vec2, p3: vec2, thick: float, color: Color) -> None:
+def DrawSplineSegmentBezierQuadratic(p1: vec2, c2: vec2, p3: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineSegmentBezierQuadratic(Vector2 p1, Vector2 c2, Vector2 p3, float thick, Color color)`
 
     Draw spline segment: Quadratic Bezier, 2 points, 1 control point"""
 
-def DrawSplineSegmentBezierCubic(p1: vec2, c2: vec2, c3: vec2, p4: vec2, thick: float, color: Color) -> None:
+def DrawSplineSegmentBezierCubic(p1: vec2, c2: vec2, c3: vec2, p4: vec2, thick: float, color: color32) -> None:
     """Wraps `void DrawSplineSegmentBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float thick, Color color)`
 
     Draw spline segment: Cubic Bezier, 2 points, 2 control points"""
@@ -1870,27 +1834,27 @@ def ExportImageAsCode(image: Image, fileName: str) -> bool:
 
     Export image as code file defining an array of bytes, returns true on success"""
 
-def GenImageColor(width: int, height: int, color: Color) -> Image:
+def GenImageColor(width: int, height: int, color: color32) -> Image:
     """Wraps `Image GenImageColor(int width, int height, Color color)`
 
     Generate image: plain color"""
 
-def GenImageGradientLinear(width: int, height: int, direction: int, start: Color, end: Color) -> Image:
+def GenImageGradientLinear(width: int, height: int, direction: int, start: color32, end: color32) -> Image:
     """Wraps `Image GenImageGradientLinear(int width, int height, int direction, Color start, Color end)`
 
     Generate image: linear gradient, direction in degrees [0..360], 0=Vertical gradient"""
 
-def GenImageGradientRadial(width: int, height: int, density: float, inner: Color, outer: Color) -> Image:
+def GenImageGradientRadial(width: int, height: int, density: float, inner: color32, outer: color32) -> Image:
     """Wraps `Image GenImageGradientRadial(int width, int height, float density, Color inner, Color outer)`
 
     Generate image: radial gradient"""
 
-def GenImageGradientSquare(width: int, height: int, density: float, inner: Color, outer: Color) -> Image:
+def GenImageGradientSquare(width: int, height: int, density: float, inner: color32, outer: color32) -> Image:
     """Wraps `Image GenImageGradientSquare(int width, int height, float density, Color inner, Color outer)`
 
     Generate image: square gradient"""
 
-def GenImageChecked(width: int, height: int, checksX: int, checksY: int, col1: Color, col2: Color) -> Image:
+def GenImageChecked(width: int, height: int, checksX: int, checksY: int, col1: color32, col2: color32) -> Image:
     """Wraps `Image GenImageChecked(int width, int height, int checksX, int checksY, Color col1, Color col2)`
 
     Generate image: checked"""
@@ -1930,12 +1894,12 @@ def ImageFromChannel(image: Image, selectedChannel: int) -> Image:
 
     Create an image from a selected channel of another image (GRAYSCALE)"""
 
-def ImageText(text: str, fontSize: int, color: Color) -> Image:
+def ImageText(text: str, fontSize: int, color: color32) -> Image:
     """Wraps `Image ImageText(const char * text, int fontSize, Color color)`
 
     Create an image from text (default font)"""
 
-def ImageTextEx(font: Font, text: str, fontSize: float, spacing: float, tint: Color) -> Image:
+def ImageTextEx(font: Font, text: str, fontSize: float, spacing: float, tint: color32) -> Image:
     """Wraps `Image ImageTextEx(Font font, const char * text, float fontSize, float spacing, Color tint)`
 
     Create an image from text (custom sprite font)"""
@@ -1945,7 +1909,7 @@ def ImageFormat(image: intptr, newFormat: int) -> None:
 
     Convert image data to desired format"""
 
-def ImageToPOT(image: intptr, fill: Color) -> None:
+def ImageToPOT(image: intptr, fill: color32) -> None:
     """Wraps `void ImageToPOT(Image * image, Color fill)`
 
     Convert image to POT (power-of-two)"""
@@ -1960,7 +1924,7 @@ def ImageAlphaCrop(image: intptr, threshold: float) -> None:
 
     Crop image depending on alpha value"""
 
-def ImageAlphaClear(image: intptr, color: Color, threshold: float) -> None:
+def ImageAlphaClear(image: intptr, color: color32, threshold: float) -> None:
     """Wraps `void ImageAlphaClear(Image * image, Color color, float threshold)`
 
     Clear alpha channel to desired color"""
@@ -1995,7 +1959,7 @@ def ImageResizeNN(image: intptr, newWidth: int, newHeight: int) -> None:
 
     Resize image (Nearest-Neighbor scaling algorithm)"""
 
-def ImageResizeCanvas(image: intptr, newWidth: int, newHeight: int, offsetX: int, offsetY: int, fill: Color) -> None:
+def ImageResizeCanvas(image: intptr, newWidth: int, newHeight: int, offsetX: int, offsetY: int, fill: color32) -> None:
     """Wraps `void ImageResizeCanvas(Image * image, int newWidth, int newHeight, int offsetX, int offsetY, Color fill)`
 
     Resize canvas and fill with color"""
@@ -2035,7 +1999,7 @@ def ImageRotateCCW(image: intptr) -> None:
 
     Rotate image counter-clockwise 90deg"""
 
-def ImageColorTint(image: intptr, color: Color) -> None:
+def ImageColorTint(image: intptr, color: color32) -> None:
     """Wraps `void ImageColorTint(Image * image, Color color)`
 
     Modify image color: tint"""
@@ -2060,7 +2024,7 @@ def ImageColorBrightness(image: intptr, brightness: int) -> None:
 
     Modify image color: brightness (-255 to 255)"""
 
-def ImageColorReplace(image: intptr, color: Color, replace: Color) -> None:
+def ImageColorReplace(image: intptr, color: color32, replace: color32) -> None:
     """Wraps `void ImageColorReplace(Image * image, Color color, Color replace)`
 
     Modify image color: replace color"""
@@ -2090,117 +2054,117 @@ def GetImageAlphaBorder(image: Image, threshold: float) -> Rectangle:
 
     Get image alpha border rectangle"""
 
-def GetImageColor(image: Image, x: int, y: int) -> Color:
+def GetImageColor(image: Image, x: int, y: int) -> color32:
     """Wraps `Color GetImageColor(Image image, int x, int y)`
 
     Get image pixel color at (x, y) position"""
 
-def ImageClearBackground(dst: intptr, color: Color) -> None:
+def ImageClearBackground(dst: intptr, color: color32) -> None:
     """Wraps `void ImageClearBackground(Image * dst, Color color)`
 
     Clear image background with given color"""
 
-def ImageDrawPixel(dst: intptr, posX: int, posY: int, color: Color) -> None:
+def ImageDrawPixel(dst: intptr, posX: int, posY: int, color: color32) -> None:
     """Wraps `void ImageDrawPixel(Image * dst, int posX, int posY, Color color)`
 
     Draw pixel within an image"""
 
-def ImageDrawPixelV(dst: intptr, position: vec2, color: Color) -> None:
+def ImageDrawPixelV(dst: intptr, position: vec2, color: color32) -> None:
     """Wraps `void ImageDrawPixelV(Image * dst, Vector2 position, Color color)`
 
     Draw pixel within an image (Vector version)"""
 
-def ImageDrawLine(dst: intptr, startPosX: int, startPosY: int, endPosX: int, endPosY: int, color: Color) -> None:
+def ImageDrawLine(dst: intptr, startPosX: int, startPosY: int, endPosX: int, endPosY: int, color: color32) -> None:
     """Wraps `void ImageDrawLine(Image * dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color)`
 
     Draw line within an image"""
 
-def ImageDrawLineV(dst: intptr, start: vec2, end: vec2, color: Color) -> None:
+def ImageDrawLineV(dst: intptr, start: vec2, end: vec2, color: color32) -> None:
     """Wraps `void ImageDrawLineV(Image * dst, Vector2 start, Vector2 end, Color color)`
 
     Draw line within an image (Vector version)"""
 
-def ImageDrawLineEx(dst: intptr, start: vec2, end: vec2, thick: int, color: Color) -> None:
+def ImageDrawLineEx(dst: intptr, start: vec2, end: vec2, thick: int, color: color32) -> None:
     """Wraps `void ImageDrawLineEx(Image * dst, Vector2 start, Vector2 end, int thick, Color color)`
 
     Draw a line defining thickness within an image"""
 
-def ImageDrawCircle(dst: intptr, centerX: int, centerY: int, radius: int, color: Color) -> None:
+def ImageDrawCircle(dst: intptr, centerX: int, centerY: int, radius: int, color: color32) -> None:
     """Wraps `void ImageDrawCircle(Image * dst, int centerX, int centerY, int radius, Color color)`
 
     Draw a filled circle within an image"""
 
-def ImageDrawCircleV(dst: intptr, center: vec2, radius: int, color: Color) -> None:
+def ImageDrawCircleV(dst: intptr, center: vec2, radius: int, color: color32) -> None:
     """Wraps `void ImageDrawCircleV(Image * dst, Vector2 center, int radius, Color color)`
 
     Draw a filled circle within an image (Vector version)"""
 
-def ImageDrawCircleLines(dst: intptr, centerX: int, centerY: int, radius: int, color: Color) -> None:
+def ImageDrawCircleLines(dst: intptr, centerX: int, centerY: int, radius: int, color: color32) -> None:
     """Wraps `void ImageDrawCircleLines(Image * dst, int centerX, int centerY, int radius, Color color)`
 
     Draw circle outline within an image"""
 
-def ImageDrawCircleLinesV(dst: intptr, center: vec2, radius: int, color: Color) -> None:
+def ImageDrawCircleLinesV(dst: intptr, center: vec2, radius: int, color: color32) -> None:
     """Wraps `void ImageDrawCircleLinesV(Image * dst, Vector2 center, int radius, Color color)`
 
     Draw circle outline within an image (Vector version)"""
 
-def ImageDrawRectangle(dst: intptr, posX: int, posY: int, width: int, height: int, color: Color) -> None:
+def ImageDrawRectangle(dst: intptr, posX: int, posY: int, width: int, height: int, color: color32) -> None:
     """Wraps `void ImageDrawRectangle(Image * dst, int posX, int posY, int width, int height, Color color)`
 
     Draw rectangle within an image"""
 
-def ImageDrawRectangleV(dst: intptr, position: vec2, size: vec2, color: Color) -> None:
+def ImageDrawRectangleV(dst: intptr, position: vec2, size: vec2, color: color32) -> None:
     """Wraps `void ImageDrawRectangleV(Image * dst, Vector2 position, Vector2 size, Color color)`
 
     Draw rectangle within an image (Vector version)"""
 
-def ImageDrawRectangleRec(dst: intptr, rec: Rectangle, color: Color) -> None:
+def ImageDrawRectangleRec(dst: intptr, rec: Rectangle, color: color32) -> None:
     """Wraps `void ImageDrawRectangleRec(Image * dst, Rectangle rec, Color color)`
 
     Draw rectangle within an image"""
 
-def ImageDrawRectangleLines(dst: intptr, rec: Rectangle, thick: int, color: Color) -> None:
+def ImageDrawRectangleLines(dst: intptr, rec: Rectangle, thick: int, color: color32) -> None:
     """Wraps `void ImageDrawRectangleLines(Image * dst, Rectangle rec, int thick, Color color)`
 
     Draw rectangle lines within an image"""
 
-def ImageDrawTriangle(dst: intptr, v1: vec2, v2: vec2, v3: vec2, color: Color) -> None:
+def ImageDrawTriangle(dst: intptr, v1: vec2, v2: vec2, v3: vec2, color: color32) -> None:
     """Wraps `void ImageDrawTriangle(Image * dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)`
 
     Draw triangle within an image"""
 
-def ImageDrawTriangleEx(dst: intptr, v1: vec2, v2: vec2, v3: vec2, c1: Color, c2: Color, c3: Color) -> None:
+def ImageDrawTriangleEx(dst: intptr, v1: vec2, v2: vec2, v3: vec2, c1: color32, c2: color32, c3: color32) -> None:
     """Wraps `void ImageDrawTriangleEx(Image * dst, Vector2 v1, Vector2 v2, Vector2 v3, Color c1, Color c2, Color c3)`
 
     Draw triangle with interpolated colors within an image"""
 
-def ImageDrawTriangleLines(dst: intptr, v1: vec2, v2: vec2, v3: vec2, color: Color) -> None:
+def ImageDrawTriangleLines(dst: intptr, v1: vec2, v2: vec2, v3: vec2, color: color32) -> None:
     """Wraps `void ImageDrawTriangleLines(Image * dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)`
 
     Draw triangle outline within an image"""
 
-def ImageDrawTriangleFan(dst: intptr, points: intptr, pointCount: int, color: Color) -> None:
+def ImageDrawTriangleFan(dst: intptr, points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void ImageDrawTriangleFan(Image * dst, Vector2 * points, int pointCount, Color color)`
 
     Draw a triangle fan defined by points within an image (first vertex is the center)"""
 
-def ImageDrawTriangleStrip(dst: intptr, points: intptr, pointCount: int, color: Color) -> None:
+def ImageDrawTriangleStrip(dst: intptr, points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void ImageDrawTriangleStrip(Image * dst, Vector2 * points, int pointCount, Color color)`
 
     Draw a triangle strip defined by points within an image"""
 
-def ImageDraw(dst: intptr, src: Image, srcRec: Rectangle, dstRec: Rectangle, tint: Color) -> None:
+def ImageDraw(dst: intptr, src: Image, srcRec: Rectangle, dstRec: Rectangle, tint: color32) -> None:
     """Wraps `void ImageDraw(Image * dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint)`
 
     Draw a source image within a destination image (tint applied to source)"""
 
-def ImageDrawText(dst: intptr, text: str, posX: int, posY: int, fontSize: int, color: Color) -> None:
+def ImageDrawText(dst: intptr, text: str, posX: int, posY: int, fontSize: int, color: color32) -> None:
     """Wraps `void ImageDrawText(Image * dst, const char * text, int posX, int posY, int fontSize, Color color)`
 
     Draw text (using default font) within an image (destination)"""
 
-def ImageDrawTextEx(dst: intptr, font: Font, text: str, position: vec2, fontSize: float, spacing: float, tint: Color) -> None:
+def ImageDrawTextEx(dst: intptr, font: Font, text: str, position: vec2, fontSize: float, spacing: float, tint: color32) -> None:
     """Wraps `void ImageDrawTextEx(Image * dst, Font font, const char * text, Vector2 position, float fontSize, float spacing, Color tint)`
 
     Draw text (custom sprite font) within an image (destination)"""
@@ -2270,112 +2234,112 @@ def SetTextureWrap(texture: Texture2D, wrap: int) -> None:
 
     Set texture wrapping mode"""
 
-def DrawTexture(texture: Texture2D, posX: int, posY: int, tint: Color) -> None:
+def DrawTexture(texture: Texture2D, posX: int, posY: int, tint: color32) -> None:
     """Wraps `void DrawTexture(Texture2D texture, int posX, int posY, Color tint)`
 
     Draw a Texture2D"""
 
-def DrawTextureV(texture: Texture2D, position: vec2, tint: Color) -> None:
+def DrawTextureV(texture: Texture2D, position: vec2, tint: color32) -> None:
     """Wraps `void DrawTextureV(Texture2D texture, Vector2 position, Color tint)`
 
     Draw a Texture2D with position defined as Vector2"""
 
-def DrawTextureEx(texture: Texture2D, position: vec2, rotation: float, scale: float, tint: Color) -> None:
+def DrawTextureEx(texture: Texture2D, position: vec2, rotation: float, scale: float, tint: color32) -> None:
     """Wraps `void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint)`
 
     Draw a Texture2D with extended parameters"""
 
-def DrawTextureRec(texture: Texture2D, source: Rectangle, position: vec2, tint: Color) -> None:
+def DrawTextureRec(texture: Texture2D, source: Rectangle, position: vec2, tint: color32) -> None:
     """Wraps `void DrawTextureRec(Texture2D texture, Rectangle source, Vector2 position, Color tint)`
 
     Draw a part of a texture defined by a rectangle"""
 
-def DrawTexturePro(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: vec2, rotation: float, tint: Color) -> None:
+def DrawTexturePro(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: vec2, rotation: float, tint: color32) -> None:
     """Wraps `void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint)`
 
     Draw a part of a texture defined by a rectangle with 'pro' parameters"""
 
-def DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dest: Rectangle, origin: vec2, rotation: float, tint: Color) -> None:
+def DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dest: Rectangle, origin: vec2, rotation: float, tint: color32) -> None:
     """Wraps `void DrawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle dest, Vector2 origin, float rotation, Color tint)`
 
     Draws a texture (or part of it) that stretches or shrinks nicely"""
 
-def ColorIsEqual(col1: Color, col2: Color) -> bool:
+def ColorIsEqual(col1: color32, col2: color32) -> bool:
     """Wraps `bool ColorIsEqual(Color col1, Color col2)`
 
     Check if two colors are equal"""
 
-def Fade(color: Color, alpha: float) -> Color:
+def Fade(color: color32, alpha: float) -> color32:
     """Wraps `Color Fade(Color color, float alpha)`
 
     Get color with alpha applied, alpha goes from 0.0f to 1.0f"""
 
-def ColorToInt(color: Color) -> int:
+def ColorToInt(color: color32) -> int:
     """Wraps `int ColorToInt(Color color)`
 
     Get hexadecimal value for a Color (0xRRGGBBAA)"""
 
-def ColorNormalize(color: Color) -> Vector4:
+def ColorNormalize(color: color32) -> Vector4:
     """Wraps `Vector4 ColorNormalize(Color color)`
 
     Get Color normalized as float [0..1]"""
 
-def ColorFromNormalized(normalized: Vector4) -> Color:
+def ColorFromNormalized(normalized: Vector4) -> color32:
     """Wraps `Color ColorFromNormalized(Vector4 normalized)`
 
     Get Color from normalized values [0..1]"""
 
-def ColorToHSV(color: Color) -> vec3:
+def ColorToHSV(color: color32) -> vec3:
     """Wraps `Vector3 ColorToHSV(Color color)`
 
     Get HSV values for a Color, hue [0..360], saturation/value [0..1]"""
 
-def ColorFromHSV(hue: float, saturation: float, value: float) -> Color:
+def ColorFromHSV(hue: float, saturation: float, value: float) -> color32:
     """Wraps `Color ColorFromHSV(float hue, float saturation, float value)`
 
     Get a Color from HSV values, hue [0..360], saturation/value [0..1]"""
 
-def ColorTint(color: Color, tint: Color) -> Color:
+def ColorTint(color: color32, tint: color32) -> color32:
     """Wraps `Color ColorTint(Color color, Color tint)`
 
     Get color multiplied with another color"""
 
-def ColorBrightness(color: Color, factor: float) -> Color:
+def ColorBrightness(color: color32, factor: float) -> color32:
     """Wraps `Color ColorBrightness(Color color, float factor)`
 
     Get color with brightness correction, brightness factor goes from -1.0f to 1.0f"""
 
-def ColorContrast(color: Color, contrast: float) -> Color:
+def ColorContrast(color: color32, contrast: float) -> color32:
     """Wraps `Color ColorContrast(Color color, float contrast)`
 
     Get color with contrast correction, contrast values between -1.0f and 1.0f"""
 
-def ColorAlpha(color: Color, alpha: float) -> Color:
+def ColorAlpha(color: color32, alpha: float) -> color32:
     """Wraps `Color ColorAlpha(Color color, float alpha)`
 
     Get color with alpha applied, alpha goes from 0.0f to 1.0f"""
 
-def ColorAlphaBlend(dst: Color, src: Color, tint: Color) -> Color:
+def ColorAlphaBlend(dst: color32, src: color32, tint: color32) -> color32:
     """Wraps `Color ColorAlphaBlend(Color dst, Color src, Color tint)`
 
     Get src alpha-blended into dst color with tint"""
 
-def ColorLerp(color1: Color, color2: Color, factor: float) -> Color:
+def ColorLerp(color1: color32, color2: color32, factor: float) -> color32:
     """Wraps `Color ColorLerp(Color color1, Color color2, float factor)`
 
     Get color lerp interpolation between two colors, factor [0.0f..1.0f]"""
 
-def GetColor(hexValue: int) -> Color:
+def GetColor(hexValue: int) -> color32:
     """Wraps `Color GetColor(unsigned int hexValue)`
 
     Get Color structure from hexadecimal value"""
 
-def GetPixelColor(srcPtr: intptr, format: int) -> Color:
+def GetPixelColor(srcPtr: intptr, format: int) -> color32:
     """Wraps `Color GetPixelColor(void * srcPtr, int format)`
 
     Get Color from a source pixel pointer of certain format"""
 
-def SetPixelColor(dstPtr: intptr, color: Color, format: int) -> None:
+def SetPixelColor(dstPtr: intptr, color: color32, format: int) -> None:
     """Wraps `void SetPixelColor(void * dstPtr, Color color, int format)`
 
     Set color formatted into destination pixel pointer"""
@@ -2400,7 +2364,7 @@ def LoadFontEx(fileName: str, fontSize: int, codepoints: intptr, codepointCount:
 
     Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set, font size is provided in pixels height"""
 
-def LoadFontFromImage(image: Image, key: Color, firstChar: int) -> Font:
+def LoadFontFromImage(image: Image, key: color32, firstChar: int) -> Font:
     """Wraps `Font LoadFontFromImage(Image image, Color key, int firstChar)`
 
     Load font from Image (XNA style)"""
@@ -2445,27 +2409,27 @@ def DrawFPS(posX: int, posY: int) -> None:
 
     Draw current FPS"""
 
-def DrawText(text: str, posX: int, posY: int, fontSize: int, color: Color) -> None:
+def DrawText(text: str, posX: int, posY: int, fontSize: int, color: color32) -> None:
     """Wraps `void DrawText(const char * text, int posX, int posY, int fontSize, Color color)`
 
     Draw text (using default font)"""
 
-def DrawTextEx(font: Font, text: str, position: vec2, fontSize: float, spacing: float, tint: Color) -> None:
+def DrawTextEx(font: Font, text: str, position: vec2, fontSize: float, spacing: float, tint: color32) -> None:
     """Wraps `void DrawTextEx(Font font, const char * text, Vector2 position, float fontSize, float spacing, Color tint)`
 
     Draw text using font and additional parameters"""
 
-def DrawTextPro(font: Font, text: str, position: vec2, origin: vec2, rotation: float, fontSize: float, spacing: float, tint: Color) -> None:
+def DrawTextPro(font: Font, text: str, position: vec2, origin: vec2, rotation: float, fontSize: float, spacing: float, tint: color32) -> None:
     """Wraps `void DrawTextPro(Font font, const char * text, Vector2 position, Vector2 origin, float rotation, float fontSize, float spacing, Color tint)`
 
     Draw text using Font and pro parameters (rotation)"""
 
-def DrawTextCodepoint(font: Font, codepoint: int, position: vec2, fontSize: float, tint: Color) -> None:
+def DrawTextCodepoint(font: Font, codepoint: int, position: vec2, fontSize: float, tint: color32) -> None:
     """Wraps `void DrawTextCodepoint(Font font, int codepoint, Vector2 position, float fontSize, Color tint)`
 
     Draw one character (codepoint)"""
 
-def DrawTextCodepoints(font: Font, codepoints: intptr, codepointCount: int, position: vec2, fontSize: float, spacing: float, tint: Color) -> None:
+def DrawTextCodepoints(font: Font, codepoints: intptr, codepointCount: int, position: vec2, fontSize: float, spacing: float, tint: color32) -> None:
     """Wraps `void DrawTextCodepoints(Font font, const int * codepoints, int codepointCount, Vector2 position, float fontSize, float spacing, Color tint)`
 
     Draw multiple character (codepoint)"""
@@ -2630,102 +2594,102 @@ def TextToFloat(text: str) -> float:
 
     Get float value from text (negative values not supported)"""
 
-def DrawLine3D(startPos: vec3, endPos: vec3, color: Color) -> None:
+def DrawLine3D(startPos: vec3, endPos: vec3, color: color32) -> None:
     """Wraps `void DrawLine3D(Vector3 startPos, Vector3 endPos, Color color)`
 
     Draw a line in 3D world space"""
 
-def DrawPoint3D(position: vec3, color: Color) -> None:
+def DrawPoint3D(position: vec3, color: color32) -> None:
     """Wraps `void DrawPoint3D(Vector3 position, Color color)`
 
     Draw a point in 3D space, actually a small line"""
 
-def DrawCircle3D(center: vec3, radius: float, rotationAxis: vec3, rotationAngle: float, color: Color) -> None:
+def DrawCircle3D(center: vec3, radius: float, rotationAxis: vec3, rotationAngle: float, color: color32) -> None:
     """Wraps `void DrawCircle3D(Vector3 center, float radius, Vector3 rotationAxis, float rotationAngle, Color color)`
 
     Draw a circle in 3D world space"""
 
-def DrawTriangle3D(v1: vec3, v2: vec3, v3: vec3, color: Color) -> None:
+def DrawTriangle3D(v1: vec3, v2: vec3, v3: vec3, color: color32) -> None:
     """Wraps `void DrawTriangle3D(Vector3 v1, Vector3 v2, Vector3 v3, Color color)`
 
     Draw a color-filled triangle (vertex in counter-clockwise order!)"""
 
-def DrawTriangleStrip3D(points: intptr, pointCount: int, color: Color) -> None:
+def DrawTriangleStrip3D(points: intptr, pointCount: int, color: color32) -> None:
     """Wraps `void DrawTriangleStrip3D(const Vector3 * points, int pointCount, Color color)`
 
     Draw a triangle strip defined by points"""
 
-def DrawCube(position: vec3, width: float, height: float, length: float, color: Color) -> None:
+def DrawCube(position: vec3, width: float, height: float, length: float, color: color32) -> None:
     """Wraps `void DrawCube(Vector3 position, float width, float height, float length, Color color)`
 
     Draw cube"""
 
-def DrawCubeV(position: vec3, size: vec3, color: Color) -> None:
+def DrawCubeV(position: vec3, size: vec3, color: color32) -> None:
     """Wraps `void DrawCubeV(Vector3 position, Vector3 size, Color color)`
 
     Draw cube (Vector version)"""
 
-def DrawCubeWires(position: vec3, width: float, height: float, length: float, color: Color) -> None:
+def DrawCubeWires(position: vec3, width: float, height: float, length: float, color: color32) -> None:
     """Wraps `void DrawCubeWires(Vector3 position, float width, float height, float length, Color color)`
 
     Draw cube wires"""
 
-def DrawCubeWiresV(position: vec3, size: vec3, color: Color) -> None:
+def DrawCubeWiresV(position: vec3, size: vec3, color: color32) -> None:
     """Wraps `void DrawCubeWiresV(Vector3 position, Vector3 size, Color color)`
 
     Draw cube wires (Vector version)"""
 
-def DrawSphere(centerPos: vec3, radius: float, color: Color) -> None:
+def DrawSphere(centerPos: vec3, radius: float, color: color32) -> None:
     """Wraps `void DrawSphere(Vector3 centerPos, float radius, Color color)`
 
     Draw sphere"""
 
-def DrawSphereEx(centerPos: vec3, radius: float, rings: int, slices: int, color: Color) -> None:
+def DrawSphereEx(centerPos: vec3, radius: float, rings: int, slices: int, color: color32) -> None:
     """Wraps `void DrawSphereEx(Vector3 centerPos, float radius, int rings, int slices, Color color)`
 
     Draw sphere with extended parameters"""
 
-def DrawSphereWires(centerPos: vec3, radius: float, rings: int, slices: int, color: Color) -> None:
+def DrawSphereWires(centerPos: vec3, radius: float, rings: int, slices: int, color: color32) -> None:
     """Wraps `void DrawSphereWires(Vector3 centerPos, float radius, int rings, int slices, Color color)`
 
     Draw sphere wires"""
 
-def DrawCylinder(position: vec3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: Color) -> None:
+def DrawCylinder(position: vec3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: color32) -> None:
     """Wraps `void DrawCylinder(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)`
 
     Draw a cylinder/cone"""
 
-def DrawCylinderEx(startPos: vec3, endPos: vec3, startRadius: float, endRadius: float, sides: int, color: Color) -> None:
+def DrawCylinderEx(startPos: vec3, endPos: vec3, startRadius: float, endRadius: float, sides: int, color: color32) -> None:
     """Wraps `void DrawCylinderEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)`
 
     Draw a cylinder with base at startPos and top at endPos"""
 
-def DrawCylinderWires(position: vec3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: Color) -> None:
+def DrawCylinderWires(position: vec3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: color32) -> None:
     """Wraps `void DrawCylinderWires(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)`
 
     Draw a cylinder/cone wires"""
 
-def DrawCylinderWiresEx(startPos: vec3, endPos: vec3, startRadius: float, endRadius: float, sides: int, color: Color) -> None:
+def DrawCylinderWiresEx(startPos: vec3, endPos: vec3, startRadius: float, endRadius: float, sides: int, color: color32) -> None:
     """Wraps `void DrawCylinderWiresEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)`
 
     Draw a cylinder wires with base at startPos and top at endPos"""
 
-def DrawCapsule(startPos: vec3, endPos: vec3, radius: float, slices: int, rings: int, color: Color) -> None:
+def DrawCapsule(startPos: vec3, endPos: vec3, radius: float, slices: int, rings: int, color: color32) -> None:
     """Wraps `void DrawCapsule(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)`
 
     Draw a capsule with the center of its sphere caps at startPos and endPos"""
 
-def DrawCapsuleWires(startPos: vec3, endPos: vec3, radius: float, slices: int, rings: int, color: Color) -> None:
+def DrawCapsuleWires(startPos: vec3, endPos: vec3, radius: float, slices: int, rings: int, color: color32) -> None:
     """Wraps `void DrawCapsuleWires(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)`
 
     Draw capsule wireframe with the center of its sphere caps at startPos and endPos"""
 
-def DrawPlane(centerPos: vec3, size: vec2, color: Color) -> None:
+def DrawPlane(centerPos: vec3, size: vec2, color: color32) -> None:
     """Wraps `void DrawPlane(Vector3 centerPos, Vector2 size, Color color)`
 
     Draw a plane XZ"""
 
-def DrawRay(ray: Ray, color: Color) -> None:
+def DrawRay(ray: Ray, color: color32) -> None:
     """Wraps `void DrawRay(Ray ray, Color color)`
 
     Draw a ray line"""
@@ -2760,52 +2724,52 @@ def GetModelBoundingBox(model: Model) -> BoundingBox:
 
     Compute model bounding box limits (considers all meshes)"""
 
-def DrawModel(model: Model, position: vec3, scale: float, tint: Color) -> None:
+def DrawModel(model: Model, position: vec3, scale: float, tint: color32) -> None:
     """Wraps `void DrawModel(Model model, Vector3 position, float scale, Color tint)`
 
     Draw a model (with texture if set)"""
 
-def DrawModelEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: Color) -> None:
+def DrawModelEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: color32) -> None:
     """Wraps `void DrawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)`
 
     Draw a model with extended parameters"""
 
-def DrawModelWires(model: Model, position: vec3, scale: float, tint: Color) -> None:
+def DrawModelWires(model: Model, position: vec3, scale: float, tint: color32) -> None:
     """Wraps `void DrawModelWires(Model model, Vector3 position, float scale, Color tint)`
 
     Draw a model wires (with texture if set)"""
 
-def DrawModelWiresEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: Color) -> None:
+def DrawModelWiresEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: color32) -> None:
     """Wraps `void DrawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)`
 
     Draw a model wires (with texture if set) with extended parameters"""
 
-def DrawModelPoints(model: Model, position: vec3, scale: float, tint: Color) -> None:
+def DrawModelPoints(model: Model, position: vec3, scale: float, tint: color32) -> None:
     """Wraps `void DrawModelPoints(Model model, Vector3 position, float scale, Color tint)`
 
     Draw a model as points"""
 
-def DrawModelPointsEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: Color) -> None:
+def DrawModelPointsEx(model: Model, position: vec3, rotationAxis: vec3, rotationAngle: float, scale: vec3, tint: color32) -> None:
     """Wraps `void DrawModelPointsEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)`
 
     Draw a model as points with extended parameters"""
 
-def DrawBoundingBox(box: BoundingBox, color: Color) -> None:
+def DrawBoundingBox(box: BoundingBox, color: color32) -> None:
     """Wraps `void DrawBoundingBox(BoundingBox box, Color color)`
 
     Draw bounding box (wires)"""
 
-def DrawBillboard(camera: Camera, texture: Texture2D, position: vec3, scale: float, tint: Color) -> None:
+def DrawBillboard(camera: Camera, texture: Texture2D, position: vec3, scale: float, tint: color32) -> None:
     """Wraps `void DrawBillboard(Camera camera, Texture2D texture, Vector3 position, float scale, Color tint)`
 
     Draw a billboard texture"""
 
-def DrawBillboardRec(camera: Camera, texture: Texture2D, source: Rectangle, position: vec3, size: vec2, tint: Color) -> None:
+def DrawBillboardRec(camera: Camera, texture: Texture2D, source: Rectangle, position: vec3, size: vec2, tint: color32) -> None:
     """Wraps `void DrawBillboardRec(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector2 size, Color tint)`
 
     Draw a billboard texture defined by source"""
 
-def DrawBillboardPro(camera: Camera, texture: Texture2D, source: Rectangle, position: vec3, up: vec3, size: vec2, origin: vec2, rotation: float, tint: Color) -> None:
+def DrawBillboardPro(camera: Camera, texture: Texture2D, source: Rectangle, position: vec3, up: vec3, size: vec2, origin: vec2, rotation: float, tint: color32) -> None:
     """Wraps `void DrawBillboardPro(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector3 up, Vector2 size, Vector2 origin, float rotation, Color tint)`
 
     Draw a billboard texture defined by source and rotation"""

@@ -16,6 +16,12 @@ add_executable(
     output/raylib.c
 )
 
+if(MSVC)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Ox /wd4244")
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2")
+endif()
+
 target_link_libraries(
     ${PROJECT_NAME}
     raylib

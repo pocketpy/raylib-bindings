@@ -669,6 +669,11 @@ def GetClipboardText() -> str:
 
     Get clipboard text content"""
 
+def GetClipboardImage() -> Image:
+    """Wraps `Image GetClipboardImage()`
+
+    Get clipboard image content"""
+
 def EnableEventWaiting() -> None:
     """Wraps `void EnableEventWaiting()`
 

@@ -4024,6 +4024,15 @@ static bool cfunc__GetClipboardText(int argc, py_Ref argv) {
     py_newstr(py_retval(), res);
     return true;
 }
+static bool cfunc__GetClipboardImage(int argc, py_Ref argv) {
+    PY_CHECK_ARGC(0);
+    Image res = GetClipboardImage();
+    do {
+        Image* ud = py_newobject(py_retval(), tp_user_Image, 0, sizeof(Image));
+        *ud = res;
+    } while(0);
+    return true;
+}
 static bool cfunc__EnableEventWaiting(int argc, py_Ref argv) {
     PY_CHECK_ARGC(0);
     EnableEventWaiting();
@@ -12399,6 +12408,7 @@ void py__add_module_raylib() {
     py_bindfunc(mod, "GetMonitorName", &cfunc__GetMonitorName);
     py_bindfunc(mod, "SetClipboardText", &cfunc__SetClipboardText);
     py_bindfunc(mod, "GetClipboardText", &cfunc__GetClipboardText);
+    py_bindfunc(mod, "GetClipboardImage", &cfunc__GetClipboardImage);
     py_bindfunc(mod, "EnableEventWaiting", &cfunc__EnableEventWaiting);
     py_bindfunc(mod, "DisableEventWaiting", &cfunc__DisableEventWaiting);
     py_bindfunc(mod, "ShowCursor", &cfunc__ShowCursor);

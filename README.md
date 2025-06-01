@@ -2,7 +2,7 @@
 
 This repo contains pocketpy bindings for raylib.
 
-**Current raylib version: `5.5+` (2025/6/2)**
+**Current raylib version: `5.5`**
 
 ## Requirements
 

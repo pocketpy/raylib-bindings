@@ -1,9 +1,10 @@
 import json
 import os, sys
 
-sys.path.append('pocketpy/scripts/c_bind')
+sys.path.append('pocketpy/ffigen')
 
-from c_bind import Library, set_vmath_converter
+from ffigen.library import Library
+from ffigen.converters import set_vmath_converter
 
 with open('raylib/parser/output/raylib_api.json') as f:
     data = json.load(f)

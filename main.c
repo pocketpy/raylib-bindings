@@ -9,7 +9,7 @@ int main(){
     // add raylib module to python
     py__add_module_raylib();
 
-    char* source = py_callbacks()->importfile("main.py");
+    char* source = py_callbacks()->importfile("main.py", NULL);
     assert(source != NULL);
 
     bool ok = py_exec(source, "main.py", EXEC_MODE, NULL);

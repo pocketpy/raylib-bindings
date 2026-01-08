@@ -1,6 +1,6 @@
 {
     "extraPaths": [
-        "pocketpy/scripts/c_bind",
+        "pocketpy/ffigen",
         "pocketpy/include/typings"
     ],
     "reportMissingModuleSource": "none",

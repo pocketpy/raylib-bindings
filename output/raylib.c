@@ -1,15 +1,9 @@
 #include "pocketpy.h"
-#include "string.h"
+#include <string.h>
+#include <stdint.h>
 #include "raylib.h"
 
 #define ADD_ENUM(name) py_newint(py_emplacedict(mod, py_name(#name)), name)
-
-static bool struct__address__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    void* ud = py_touserdata(argv);
-    py_newint(py_retval(), (py_i64)ud);
-    return true;
-}
 
 #define tp_user_Quaternion tp_user_Vector4
 #define tp_user_Texture2D tp_user_Texture
@@ -35,13 +29,6 @@ static bool Vector4__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 5 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Vector4__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Vector4* self = py_touserdata(argv);
-    Vector4* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Vector4));
-    *res = *self;
     return true;
 }
 static bool Vector4__get_x(int argc, py_Ref argv) {
@@ -97,11 +84,10 @@ static bool Vector4__set_w(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Vector4(py_GlobalRef mod) {
-    py_Type type = py_newtype("Vector4", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Vector4__new__);
-    py_bindmagic(type, __init__, Vector4__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Vector4__copy__);
+    py_Type type = py_newtype("Vector4", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Vector4));
+    py_bindmethod(type, "__new__", Vector4__new__);
+    py_bindmethod(type, "__init__", Vector4__init__);
     py_bindproperty(type, "x", Vector4__get_x, Vector4__set_x);
     py_bindproperty(type, "y", Vector4__get_y, Vector4__set_y);
     py_bindproperty(type, "z", Vector4__get_z, Vector4__set_z);
@@ -139,13 +125,6 @@ static bool Matrix__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 17 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Matrix__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Matrix* self = py_touserdata(argv);
-    Matrix* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Matrix));
-    *res = *self;
     return true;
 }
 static bool Matrix__get_m0(int argc, py_Ref argv) {
@@ -357,11 +336,10 @@ static bool Matrix__set_m15(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Matrix(py_GlobalRef mod) {
-    py_Type type = py_newtype("Matrix", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Matrix__new__);
-    py_bindmagic(type, __init__, Matrix__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Matrix__copy__);
+    py_Type type = py_newtype("Matrix", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Matrix));
+    py_bindmethod(type, "__new__", Matrix__new__);
+    py_bindmethod(type, "__init__", Matrix__init__);
     py_bindproperty(type, "m0", Matrix__get_m0, Matrix__set_m0);
     py_bindproperty(type, "m4", Matrix__get_m4, Matrix__set_m4);
     py_bindproperty(type, "m8", Matrix__get_m8, Matrix__set_m8);
@@ -399,13 +377,6 @@ static bool Rectangle__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 5 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Rectangle__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Rectangle* self = py_touserdata(argv);
-    Rectangle* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Rectangle));
-    *res = *self;
     return true;
 }
 static bool Rectangle__get_x(int argc, py_Ref argv) {
@@ -461,11 +432,10 @@ static bool Rectangle__set_height(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Rectangle(py_GlobalRef mod) {
-    py_Type type = py_newtype("Rectangle", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Rectangle__new__);
-    py_bindmagic(type, __init__, Rectangle__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Rectangle__copy__);
+    py_Type type = py_newtype("Rectangle", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Rectangle));
+    py_bindmethod(type, "__new__", Rectangle__new__);
+    py_bindmethod(type, "__init__", Rectangle__init__);
     py_bindproperty(type, "x", Rectangle__get_x, Rectangle__set_x);
     py_bindproperty(type, "y", Rectangle__get_y, Rectangle__set_y);
     py_bindproperty(type, "width", Rectangle__get_width, Rectangle__set_width);
@@ -497,13 +467,6 @@ static bool Image__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Image__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Image* self = py_touserdata(argv);
-    Image* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Image));
-    *res = *self;
     return true;
 }
 static bool Image__get_data(int argc, py_Ref argv) {
@@ -577,11 +540,10 @@ static bool Image__set_format(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Image(py_GlobalRef mod) {
-    py_Type type = py_newtype("Image", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Image__new__);
-    py_bindmagic(type, __init__, Image__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Image__copy__);
+    py_Type type = py_newtype("Image", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Image));
+    py_bindmethod(type, "__new__", Image__new__);
+    py_bindmethod(type, "__init__", Image__init__);
     py_bindproperty(type, "data", Image__get_data, Image__set_data);
     py_bindproperty(type, "width", Image__get_width, Image__set_width);
     py_bindproperty(type, "height", Image__get_height, Image__set_height);
@@ -614,13 +576,6 @@ static bool Texture__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Texture__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Texture* self = py_touserdata(argv);
-    Texture* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Texture));
-    *res = *self;
     return true;
 }
 static bool Texture__get_id(int argc, py_Ref argv) {
@@ -694,11 +649,10 @@ static bool Texture__set_format(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Texture(py_GlobalRef mod) {
-    py_Type type = py_newtype("Texture", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Texture__new__);
-    py_bindmagic(type, __init__, Texture__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Texture__copy__);
+    py_Type type = py_newtype("Texture", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Texture));
+    py_bindmethod(type, "__new__", Texture__new__);
+    py_bindmethod(type, "__init__", Texture__init__);
     py_bindproperty(type, "id", Texture__get_id, Texture__set_id);
     py_bindproperty(type, "width", Texture__get_width, Texture__set_width);
     py_bindproperty(type, "height", Texture__get_height, Texture__set_height);
@@ -731,13 +685,6 @@ static bool RenderTexture__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool RenderTexture__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    RenderTexture* self = py_touserdata(argv);
-    RenderTexture* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(RenderTexture));
-    *res = *self;
     return true;
 }
 static bool RenderTexture__get_id(int argc, py_Ref argv) {
@@ -793,11 +740,10 @@ static bool RenderTexture__set_depth(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__RenderTexture(py_GlobalRef mod) {
-    py_Type type = py_newtype("RenderTexture", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, RenderTexture__new__);
-    py_bindmagic(type, __init__, RenderTexture__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", RenderTexture__copy__);
+    py_Type type = py_newtype("RenderTexture", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(RenderTexture));
+    py_bindmethod(type, "__new__", RenderTexture__new__);
+    py_bindmethod(type, "__init__", RenderTexture__init__);
     py_bindproperty(type, "id", RenderTexture__get_id, RenderTexture__set_id);
     py_bindproperty(type, "texture", RenderTexture__get_texture, RenderTexture__set_texture);
     py_bindproperty(type, "depth", RenderTexture__get_depth, RenderTexture__set_depth);
@@ -832,13 +778,6 @@ static bool NPatchInfo__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 7 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool NPatchInfo__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    NPatchInfo* self = py_touserdata(argv);
-    NPatchInfo* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(NPatchInfo));
-    *res = *self;
     return true;
 }
 static bool NPatchInfo__get_source(int argc, py_Ref argv) {
@@ -931,11 +870,10 @@ static bool NPatchInfo__set_layout(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__NPatchInfo(py_GlobalRef mod) {
-    py_Type type = py_newtype("NPatchInfo", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, NPatchInfo__new__);
-    py_bindmagic(type, __init__, NPatchInfo__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", NPatchInfo__copy__);
+    py_Type type = py_newtype("NPatchInfo", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(NPatchInfo));
+    py_bindmethod(type, "__new__", NPatchInfo__new__);
+    py_bindmethod(type, "__init__", NPatchInfo__init__);
     py_bindproperty(type, "source", NPatchInfo__get_source, NPatchInfo__set_source);
     py_bindproperty(type, "left", NPatchInfo__get_left, NPatchInfo__set_left);
     py_bindproperty(type, "top", NPatchInfo__get_top, NPatchInfo__set_top);
@@ -971,13 +909,6 @@ static bool GlyphInfo__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool GlyphInfo__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    GlyphInfo* self = py_touserdata(argv);
-    GlyphInfo* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(GlyphInfo));
-    *res = *self;
     return true;
 }
 static bool GlyphInfo__get_value(int argc, py_Ref argv) {
@@ -1056,11 +987,10 @@ static bool GlyphInfo__set_image(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__GlyphInfo(py_GlobalRef mod) {
-    py_Type type = py_newtype("GlyphInfo", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, GlyphInfo__new__);
-    py_bindmagic(type, __init__, GlyphInfo__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", GlyphInfo__copy__);
+    py_Type type = py_newtype("GlyphInfo", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(GlyphInfo));
+    py_bindmethod(type, "__new__", GlyphInfo__new__);
+    py_bindmethod(type, "__init__", GlyphInfo__init__);
     py_bindproperty(type, "value", GlyphInfo__get_value, GlyphInfo__set_value);
     py_bindproperty(type, "offsetX", GlyphInfo__get_offsetX, GlyphInfo__set_offsetX);
     py_bindproperty(type, "offsetY", GlyphInfo__get_offsetY, GlyphInfo__set_offsetY);
@@ -1097,13 +1027,6 @@ static bool Font__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 7 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Font__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Font* self = py_touserdata(argv);
-    Font* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Font));
-    *res = *self;
     return true;
 }
 static bool Font__get_baseSize(int argc, py_Ref argv) {
@@ -1196,11 +1119,10 @@ static bool Font__set_glyphs(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Font(py_GlobalRef mod) {
-    py_Type type = py_newtype("Font", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Font__new__);
-    py_bindmagic(type, __init__, Font__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Font__copy__);
+    py_Type type = py_newtype("Font", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Font));
+    py_bindmethod(type, "__new__", Font__new__);
+    py_bindmethod(type, "__init__", Font__init__);
     py_bindproperty(type, "baseSize", Font__get_baseSize, Font__set_baseSize);
     py_bindproperty(type, "glyphCount", Font__get_glyphCount, Font__set_glyphCount);
     py_bindproperty(type, "glyphPadding", Font__get_glyphPadding, Font__set_glyphPadding);
@@ -1242,13 +1164,6 @@ static bool Camera3D__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Camera3D__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Camera3D* self = py_touserdata(argv);
-    Camera3D* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Camera3D));
-    *res = *self;
     return true;
 }
 static bool Camera3D__get_position(int argc, py_Ref argv) {
@@ -1330,11 +1245,10 @@ static bool Camera3D__set_projection(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Camera3D(py_GlobalRef mod) {
-    py_Type type = py_newtype("Camera3D", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Camera3D__new__);
-    py_bindmagic(type, __init__, Camera3D__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Camera3D__copy__);
+    py_Type type = py_newtype("Camera3D", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Camera3D));
+    py_bindmethod(type, "__new__", Camera3D__new__);
+    py_bindmethod(type, "__init__", Camera3D__init__);
     py_bindproperty(type, "position", Camera3D__get_position, Camera3D__set_position);
     py_bindproperty(type, "target", Camera3D__get_target, Camera3D__set_target);
     py_bindproperty(type, "up", Camera3D__get_up, Camera3D__set_up);
@@ -1369,13 +1283,6 @@ static bool Camera2D__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 5 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Camera2D__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Camera2D* self = py_touserdata(argv);
-    Camera2D* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Camera2D));
-    *res = *self;
     return true;
 }
 static bool Camera2D__get_offset(int argc, py_Ref argv) {
@@ -1439,11 +1346,10 @@ static bool Camera2D__set_zoom(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Camera2D(py_GlobalRef mod) {
-    py_Type type = py_newtype("Camera2D", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Camera2D__new__);
-    py_bindmagic(type, __init__, Camera2D__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Camera2D__copy__);
+    py_Type type = py_newtype("Camera2D", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Camera2D));
+    py_bindmethod(type, "__new__", Camera2D__new__);
+    py_bindmethod(type, "__init__", Camera2D__init__);
     py_bindproperty(type, "offset", Camera2D__get_offset, Camera2D__set_offset);
     py_bindproperty(type, "target", Camera2D__get_target, Camera2D__set_target);
     py_bindproperty(type, "rotation", Camera2D__get_rotation, Camera2D__set_rotation);
@@ -1499,13 +1405,6 @@ static bool Mesh__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 18 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Mesh__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Mesh* self = py_touserdata(argv);
-    Mesh* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Mesh));
-    *res = *self;
     return true;
 }
 static bool Mesh__get_vertexCount(int argc, py_Ref argv) {
@@ -1747,11 +1646,10 @@ static bool Mesh__set_vboId(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Mesh(py_GlobalRef mod) {
-    py_Type type = py_newtype("Mesh", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Mesh__new__);
-    py_bindmagic(type, __init__, Mesh__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Mesh__copy__);
+    py_Type type = py_newtype("Mesh", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Mesh));
+    py_bindmethod(type, "__new__", Mesh__new__);
+    py_bindmethod(type, "__init__", Mesh__init__);
     py_bindproperty(type, "vertexCount", Mesh__get_vertexCount, Mesh__set_vertexCount);
     py_bindproperty(type, "triangleCount", Mesh__get_triangleCount, Mesh__set_triangleCount);
     py_bindproperty(type, "vertices", Mesh__get_vertices, Mesh__set_vertices);
@@ -1792,13 +1690,6 @@ static bool Shader__init__(int argc, py_Ref argv) {
     py_newnone(py_retval());
     return true;
 }
-static bool Shader__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Shader* self = py_touserdata(argv);
-    Shader* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Shader));
-    *res = *self;
-    return true;
-}
 static bool Shader__get_id(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     Shader* self = py_touserdata(argv);
@@ -1828,11 +1719,10 @@ static bool Shader__set_locs(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Shader(py_GlobalRef mod) {
-    py_Type type = py_newtype("Shader", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Shader__new__);
-    py_bindmagic(type, __init__, Shader__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Shader__copy__);
+    py_Type type = py_newtype("Shader", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Shader));
+    py_bindmethod(type, "__new__", Shader__new__);
+    py_bindmethod(type, "__init__", Shader__init__);
     py_bindproperty(type, "id", Shader__get_id, Shader__set_id);
     py_bindproperty(type, "locs", Shader__get_locs, Shader__set_locs);
     return type;
@@ -1862,13 +1752,6 @@ static bool MaterialMap__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool MaterialMap__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    MaterialMap* self = py_touserdata(argv);
-    MaterialMap* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(MaterialMap));
-    *res = *self;
     return true;
 }
 static bool MaterialMap__get_texture(int argc, py_Ref argv) {
@@ -1921,11 +1804,10 @@ static bool MaterialMap__set_value(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__MaterialMap(py_GlobalRef mod) {
-    py_Type type = py_newtype("MaterialMap", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, MaterialMap__new__);
-    py_bindmagic(type, __init__, MaterialMap__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", MaterialMap__copy__);
+    py_Type type = py_newtype("MaterialMap", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(MaterialMap));
+    py_bindmethod(type, "__new__", MaterialMap__new__);
+    py_bindmethod(type, "__init__", MaterialMap__init__);
     py_bindproperty(type, "texture", MaterialMap__get_texture, MaterialMap__set_texture);
     py_bindproperty(type, "color", MaterialMap__get_color, MaterialMap__set_color);
     py_bindproperty(type, "value", MaterialMap__get_value, MaterialMap__set_value);
@@ -1953,13 +1835,6 @@ static bool Material__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Material__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Material* self = py_touserdata(argv);
-    Material* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Material));
-    *res = *self;
     return true;
 }
 static bool Material__get_shader(int argc, py_Ref argv) {
@@ -2002,11 +1877,10 @@ static bool Material__get_params(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Material(py_GlobalRef mod) {
-    py_Type type = py_newtype("Material", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Material__new__);
-    py_bindmagic(type, __init__, Material__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Material__copy__);
+    py_Type type = py_newtype("Material", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Material));
+    py_bindmethod(type, "__new__", Material__new__);
+    py_bindmethod(type, "__init__", Material__init__);
     py_bindproperty(type, "shader", Material__get_shader, Material__set_shader);
     py_bindproperty(type, "maps", Material__get_maps, Material__set_maps);
     py_bindproperty(type, "params", Material__get_params, NULL);
@@ -2041,13 +1915,6 @@ static bool Transform__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Transform__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Transform* self = py_touserdata(argv);
-    Transform* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Transform));
-    *res = *self;
     return true;
 }
 static bool Transform__get_translation(int argc, py_Ref argv) {
@@ -2104,11 +1971,10 @@ static bool Transform__set_scale(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Transform(py_GlobalRef mod) {
-    py_Type type = py_newtype("Transform", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Transform__new__);
-    py_bindmagic(type, __init__, Transform__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Transform__copy__);
+    py_Type type = py_newtype("Transform", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Transform));
+    py_bindmethod(type, "__new__", Transform__new__);
+    py_bindmethod(type, "__init__", Transform__init__);
     py_bindproperty(type, "translation", Transform__get_translation, Transform__set_translation);
     py_bindproperty(type, "rotation", Transform__get_rotation, Transform__set_rotation);
     py_bindproperty(type, "scale", Transform__get_scale, Transform__set_scale);
@@ -2134,13 +2000,6 @@ static bool BoneInfo__init__(int argc, py_Ref argv) {
     py_newnone(py_retval());
     return true;
 }
-static bool BoneInfo__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    BoneInfo* self = py_touserdata(argv);
-    BoneInfo* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(BoneInfo));
-    *res = *self;
-    return true;
-}
 static bool BoneInfo__get_name(int argc, py_Ref argv) {
     PY_CHECK_ARGC(1);
     BoneInfo* self = py_touserdata(argv);
@@ -2162,11 +2021,10 @@ static bool BoneInfo__set_parent(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__BoneInfo(py_GlobalRef mod) {
-    py_Type type = py_newtype("BoneInfo", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, BoneInfo__new__);
-    py_bindmagic(type, __init__, BoneInfo__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", BoneInfo__copy__);
+    py_Type type = py_newtype("BoneInfo", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(BoneInfo));
+    py_bindmethod(type, "__new__", BoneInfo__new__);
+    py_bindmethod(type, "__init__", BoneInfo__init__);
     py_bindproperty(type, "name", BoneInfo__get_name, NULL);
     py_bindproperty(type, "parent", BoneInfo__get_parent, BoneInfo__set_parent);
     return type;
@@ -2206,13 +2064,6 @@ static bool Model__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 10 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Model__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Model* self = py_touserdata(argv);
-    Model* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Model));
-    *res = *self;
     return true;
 }
 static bool Model__get_transform(int argc, py_Ref argv) {
@@ -2347,11 +2198,10 @@ static bool Model__set_bindPose(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Model(py_GlobalRef mod) {
-    py_Type type = py_newtype("Model", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Model__new__);
-    py_bindmagic(type, __init__, Model__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Model__copy__);
+    py_Type type = py_newtype("Model", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Model));
+    py_bindmethod(type, "__new__", Model__new__);
+    py_bindmethod(type, "__init__", Model__init__);
     py_bindproperty(type, "transform", Model__get_transform, Model__set_transform);
     py_bindproperty(type, "meshCount", Model__get_meshCount, Model__set_meshCount);
     py_bindproperty(type, "materialCount", Model__get_materialCount, Model__set_materialCount);
@@ -2387,13 +2237,6 @@ static bool ModelAnimation__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool ModelAnimation__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    ModelAnimation* self = py_touserdata(argv);
-    ModelAnimation* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(ModelAnimation));
-    *res = *self;
     return true;
 }
 static bool ModelAnimation__get_boneCount(int argc, py_Ref argv) {
@@ -2459,11 +2302,10 @@ static bool ModelAnimation__get_name(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__ModelAnimation(py_GlobalRef mod) {
-    py_Type type = py_newtype("ModelAnimation", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, ModelAnimation__new__);
-    py_bindmagic(type, __init__, ModelAnimation__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", ModelAnimation__copy__);
+    py_Type type = py_newtype("ModelAnimation", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(ModelAnimation));
+    py_bindmethod(type, "__new__", ModelAnimation__new__);
+    py_bindmethod(type, "__init__", ModelAnimation__init__);
     py_bindproperty(type, "boneCount", ModelAnimation__get_boneCount, ModelAnimation__set_boneCount);
     py_bindproperty(type, "frameCount", ModelAnimation__get_frameCount, ModelAnimation__set_frameCount);
     py_bindproperty(type, "bones", ModelAnimation__get_bones, ModelAnimation__set_bones);
@@ -2496,13 +2338,6 @@ static bool Ray__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 3 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Ray__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Ray* self = py_touserdata(argv);
-    Ray* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Ray));
-    *res = *self;
     return true;
 }
 static bool Ray__get_position(int argc, py_Ref argv) {
@@ -2540,11 +2375,10 @@ static bool Ray__set_direction(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Ray(py_GlobalRef mod) {
-    py_Type type = py_newtype("Ray", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Ray__new__);
-    py_bindmagic(type, __init__, Ray__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Ray__copy__);
+    py_Type type = py_newtype("Ray", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Ray));
+    py_bindmethod(type, "__new__", Ray__new__);
+    py_bindmethod(type, "__init__", Ray__init__);
     py_bindproperty(type, "position", Ray__get_position, Ray__set_position);
     py_bindproperty(type, "direction", Ray__get_direction, Ray__set_direction);
     return type;
@@ -2577,13 +2411,6 @@ static bool RayCollision__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 5 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool RayCollision__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    RayCollision* self = py_touserdata(argv);
-    RayCollision* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(RayCollision));
-    *res = *self;
     return true;
 }
 static bool RayCollision__get_hit(int argc, py_Ref argv) {
@@ -2648,11 +2475,10 @@ static bool RayCollision__set_normal(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__RayCollision(py_GlobalRef mod) {
-    py_Type type = py_newtype("RayCollision", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, RayCollision__new__);
-    py_bindmagic(type, __init__, RayCollision__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", RayCollision__copy__);
+    py_Type type = py_newtype("RayCollision", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(RayCollision));
+    py_bindmethod(type, "__new__", RayCollision__new__);
+    py_bindmethod(type, "__init__", RayCollision__init__);
     py_bindproperty(type, "hit", RayCollision__get_hit, RayCollision__set_hit);
     py_bindproperty(type, "distance", RayCollision__get_distance, RayCollision__set_distance);
     py_bindproperty(type, "point", RayCollision__get_point, RayCollision__set_point);
@@ -2684,13 +2510,6 @@ static bool BoundingBox__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 3 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool BoundingBox__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    BoundingBox* self = py_touserdata(argv);
-    BoundingBox* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(BoundingBox));
-    *res = *self;
     return true;
 }
 static bool BoundingBox__get_min(int argc, py_Ref argv) {
@@ -2728,11 +2547,10 @@ static bool BoundingBox__set_max(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__BoundingBox(py_GlobalRef mod) {
-    py_Type type = py_newtype("BoundingBox", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, BoundingBox__new__);
-    py_bindmagic(type, __init__, BoundingBox__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", BoundingBox__copy__);
+    py_Type type = py_newtype("BoundingBox", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(BoundingBox));
+    py_bindmethod(type, "__new__", BoundingBox__new__);
+    py_bindmethod(type, "__init__", BoundingBox__init__);
     py_bindproperty(type, "min", BoundingBox__get_min, BoundingBox__set_min);
     py_bindproperty(type, "max", BoundingBox__get_max, BoundingBox__set_max);
     return type;
@@ -2762,13 +2580,6 @@ static bool Wave__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Wave__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Wave* self = py_touserdata(argv);
-    Wave* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Wave));
-    *res = *self;
     return true;
 }
 static bool Wave__get_frameCount(int argc, py_Ref argv) {
@@ -2842,11 +2653,10 @@ static bool Wave__set_data(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Wave(py_GlobalRef mod) {
-    py_Type type = py_newtype("Wave", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Wave__new__);
-    py_bindmagic(type, __init__, Wave__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Wave__copy__);
+    py_Type type = py_newtype("Wave", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Wave));
+    py_bindmethod(type, "__new__", Wave__new__);
+    py_bindmethod(type, "__init__", Wave__init__);
     py_bindproperty(type, "frameCount", Wave__get_frameCount, Wave__set_frameCount);
     py_bindproperty(type, "sampleRate", Wave__get_sampleRate, Wave__set_sampleRate);
     py_bindproperty(type, "sampleSize", Wave__get_sampleSize, Wave__set_sampleSize);
@@ -2879,13 +2689,6 @@ static bool AudioStream__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool AudioStream__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    AudioStream* self = py_touserdata(argv);
-    AudioStream* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(AudioStream));
-    *res = *self;
     return true;
 }
 static bool AudioStream__get_buffer(int argc, py_Ref argv) {
@@ -2959,11 +2762,10 @@ static bool AudioStream__set_channels(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__AudioStream(py_GlobalRef mod) {
-    py_Type type = py_newtype("AudioStream", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, AudioStream__new__);
-    py_bindmagic(type, __init__, AudioStream__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", AudioStream__copy__);
+    py_Type type = py_newtype("AudioStream", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(AudioStream));
+    py_bindmethod(type, "__new__", AudioStream__new__);
+    py_bindmethod(type, "__init__", AudioStream__init__);
     py_bindproperty(type, "buffer", AudioStream__get_buffer, AudioStream__set_buffer);
     py_bindproperty(type, "processor", AudioStream__get_processor, AudioStream__set_processor);
     py_bindproperty(type, "sampleRate", AudioStream__get_sampleRate, AudioStream__set_sampleRate);
@@ -2992,13 +2794,6 @@ static bool Sound__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 3 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Sound__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Sound* self = py_touserdata(argv);
-    Sound* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Sound));
-    *res = *self;
     return true;
 }
 static bool Sound__get_stream(int argc, py_Ref argv) {
@@ -3035,11 +2830,10 @@ static bool Sound__set_frameCount(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Sound(py_GlobalRef mod) {
-    py_Type type = py_newtype("Sound", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Sound__new__);
-    py_bindmagic(type, __init__, Sound__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Sound__copy__);
+    py_Type type = py_newtype("Sound", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Sound));
+    py_bindmethod(type, "__new__", Sound__new__);
+    py_bindmethod(type, "__init__", Sound__init__);
     py_bindproperty(type, "stream", Sound__get_stream, Sound__set_stream);
     py_bindproperty(type, "frameCount", Sound__get_frameCount, Sound__set_frameCount);
     return type;
@@ -3071,13 +2865,6 @@ static bool Music__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 6 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool Music__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    Music* self = py_touserdata(argv);
-    Music* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(Music));
-    *res = *self;
     return true;
 }
 static bool Music__get_stream(int argc, py_Ref argv) {
@@ -3156,11 +2943,10 @@ static bool Music__set_ctxData(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__Music(py_GlobalRef mod) {
-    py_Type type = py_newtype("Music", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, Music__new__);
-    py_bindmagic(type, __init__, Music__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", Music__copy__);
+    py_Type type = py_newtype("Music", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(Music));
+    py_bindmethod(type, "__new__", Music__new__);
+    py_bindmethod(type, "__init__", Music__init__);
     py_bindproperty(type, "stream", Music__get_stream, Music__set_stream);
     py_bindproperty(type, "frameCount", Music__get_frameCount, Music__set_frameCount);
     py_bindproperty(type, "looping", Music__get_looping, Music__set_looping);
@@ -3194,13 +2980,6 @@ static bool VrDeviceInfo__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 10 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool VrDeviceInfo__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    VrDeviceInfo* self = py_touserdata(argv);
-    VrDeviceInfo* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(VrDeviceInfo));
-    *res = *self;
     return true;
 }
 static bool VrDeviceInfo__get_hResolution(int argc, py_Ref argv) {
@@ -3309,11 +3088,10 @@ static bool VrDeviceInfo__get_chromaAbCorrection(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__VrDeviceInfo(py_GlobalRef mod) {
-    py_Type type = py_newtype("VrDeviceInfo", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, VrDeviceInfo__new__);
-    py_bindmagic(type, __init__, VrDeviceInfo__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", VrDeviceInfo__copy__);
+    py_Type type = py_newtype("VrDeviceInfo", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(VrDeviceInfo));
+    py_bindmethod(type, "__new__", VrDeviceInfo__new__);
+    py_bindmethod(type, "__init__", VrDeviceInfo__init__);
     py_bindproperty(type, "hResolution", VrDeviceInfo__get_hResolution, VrDeviceInfo__set_hResolution);
     py_bindproperty(type, "vResolution", VrDeviceInfo__get_vResolution, VrDeviceInfo__set_vResolution);
     py_bindproperty(type, "hScreenSize", VrDeviceInfo__get_hScreenSize, VrDeviceInfo__set_hScreenSize);
@@ -3348,13 +3126,6 @@ static bool VrStereoConfig__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 9 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool VrStereoConfig__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    VrStereoConfig* self = py_touserdata(argv);
-    VrStereoConfig* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(VrStereoConfig));
-    *res = *self;
     return true;
 }
 static bool VrStereoConfig__get_projection(int argc, py_Ref argv) {
@@ -3406,11 +3177,10 @@ static bool VrStereoConfig__get_scaleIn(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__VrStereoConfig(py_GlobalRef mod) {
-    py_Type type = py_newtype("VrStereoConfig", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, VrStereoConfig__new__);
-    py_bindmagic(type, __init__, VrStereoConfig__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", VrStereoConfig__copy__);
+    py_Type type = py_newtype("VrStereoConfig", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(VrStereoConfig));
+    py_bindmethod(type, "__new__", VrStereoConfig__new__);
+    py_bindmethod(type, "__init__", VrStereoConfig__init__);
     py_bindproperty(type, "projection", VrStereoConfig__get_projection, NULL);
     py_bindproperty(type, "viewOffset", VrStereoConfig__get_viewOffset, NULL);
     py_bindproperty(type, "leftLensCenter", VrStereoConfig__get_leftLensCenter, NULL);
@@ -3442,13 +3212,6 @@ static bool FilePathList__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool FilePathList__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    FilePathList* self = py_touserdata(argv);
-    FilePathList* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(FilePathList));
-    *res = *self;
     return true;
 }
 static bool FilePathList__get_capacity(int argc, py_Ref argv) {
@@ -3494,11 +3257,10 @@ static bool FilePathList__set_paths(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__FilePathList(py_GlobalRef mod) {
-    py_Type type = py_newtype("FilePathList", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, FilePathList__new__);
-    py_bindmagic(type, __init__, FilePathList__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", FilePathList__copy__);
+    py_Type type = py_newtype("FilePathList", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(FilePathList));
+    py_bindmethod(type, "__new__", FilePathList__new__);
+    py_bindmethod(type, "__init__", FilePathList__init__);
     py_bindproperty(type, "capacity", FilePathList__get_capacity, FilePathList__set_capacity);
     py_bindproperty(type, "count", FilePathList__get_count, FilePathList__set_count);
     py_bindproperty(type, "paths", FilePathList__get_paths, FilePathList__set_paths);
@@ -3524,13 +3286,6 @@ static bool AutomationEvent__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool AutomationEvent__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    AutomationEvent* self = py_touserdata(argv);
-    AutomationEvent* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(AutomationEvent));
-    *res = *self;
     return true;
 }
 static bool AutomationEvent__get_frame(int argc, py_Ref argv) {
@@ -3568,11 +3323,10 @@ static bool AutomationEvent__get_params(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__AutomationEvent(py_GlobalRef mod) {
-    py_Type type = py_newtype("AutomationEvent", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, AutomationEvent__new__);
-    py_bindmagic(type, __init__, AutomationEvent__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", AutomationEvent__copy__);
+    py_Type type = py_newtype("AutomationEvent", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(AutomationEvent));
+    py_bindmethod(type, "__new__", AutomationEvent__new__);
+    py_bindmethod(type, "__init__", AutomationEvent__init__);
     py_bindproperty(type, "frame", AutomationEvent__get_frame, AutomationEvent__set_frame);
     py_bindproperty(type, "type", AutomationEvent__get_type, AutomationEvent__set_type);
     py_bindproperty(type, "params", AutomationEvent__get_params, NULL);
@@ -3599,13 +3353,6 @@ static bool AutomationEventList__init__(int argc, py_Ref argv) {
         return TypeError("expected 1 or 4 arguments");
     }
     py_newnone(py_retval());
-    return true;
-}
-static bool AutomationEventList__copy__(int argc, py_Ref argv) {
-    PY_CHECK_ARGC(1);
-    AutomationEventList* self = py_touserdata(argv);
-    AutomationEventList* res = py_newobject(py_retval(), py_typeof(argv), 0, sizeof(AutomationEventList));
-    *res = *self;
     return true;
 }
 static bool AutomationEventList__get_capacity(int argc, py_Ref argv) {
@@ -3651,11 +3398,10 @@ static bool AutomationEventList__set_events(int argc, py_Ref argv) {
     return true;
 }
 static py_Type register__AutomationEventList(py_GlobalRef mod) {
-    py_Type type = py_newtype("AutomationEventList", tp_object, mod, NULL);
-    py_bindmagic(type, __new__, AutomationEventList__new__);
-    py_bindmagic(type, __init__, AutomationEventList__init__);
-    py_bindmethod(type, "__address__", struct__address__);
-    py_bindmethod(type, "copy", AutomationEventList__copy__);
+    py_Type type = py_newtype("AutomationEventList", tp_stdc_Memory, mod, NULL);
+    py_newint(py_emplacedict(py_tpobject(type), py_name("size")), sizeof(AutomationEventList));
+    py_bindmethod(type, "__new__", AutomationEventList__new__);
+    py_bindmethod(type, "__init__", AutomationEventList__init__);
     py_bindproperty(type, "capacity", AutomationEventList__get_capacity, AutomationEventList__set_capacity);
     py_bindproperty(type, "count", AutomationEventList__get_count, AutomationEventList__set_count);
     py_bindproperty(type, "events", AutomationEventList__get_events, AutomationEventList__set_events);
